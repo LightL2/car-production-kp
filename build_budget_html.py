@@ -10,7 +10,7 @@ from budget_adjust import prepare_client_budget
 
 ROOT = Path(__file__).parent
 DATA = ROOT / "estimate_data.json"
-INDEX = ROOT / "index.html"
+INDEX = ROOT / "kp.html"
 MARK_START = "<!-- BUDGET_START -->"
 MARK_END = "<!-- BUDGET_END -->"
 
@@ -331,7 +331,7 @@ def patch_index():
     html_block, d = build()
     text = INDEX.read_text(encoding="utf-8")
     if MARK_START not in text:
-        raise SystemExit("Markers not found in index.html — add BUDGET_START/BUDGET_END")
+        raise SystemExit("Markers not found in kp.html — add BUDGET_START/BUDGET_END")
     pattern = re.compile(re.escape(MARK_START) + r".*?" + re.escape(MARK_END), re.DOTALL)
     new_text = pattern.sub(html_block.strip(), text)
     INDEX.write_text(new_text, encoding="utf-8")

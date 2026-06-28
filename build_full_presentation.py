@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Build presentation.html = full KP (index.html) + team slides."""
+"""Build presentation.html = full KP (kp.html) + team slides; index.html = deploy root."""
 import re
 import subprocess
 import sys
@@ -8,8 +8,9 @@ from pathlib import Path
 from team_content import TEAM_CSS, build_team_slides_html, copy_team_assets
 
 ROOT = Path(__file__).parent
-INDEX = ROOT / "index.html"
+INDEX = ROOT / "kp.html"
 OUT = ROOT / "presentation.html"
+DEPLOY_INDEX = ROOT / "index.html"
 TEAM_MARK_START = "<!-- TEAM_START -->"
 TEAM_MARK_END = "<!-- TEAM_END -->"
 BUDGET_START = "<!-- BUDGET_START -->"
@@ -79,8 +80,10 @@ def build():
         text = text.replace(JS_CLICK_PATCH_OLD, JS_CLICK_PATCH_NEW)
 
     OUT.write_text(text, encoding="utf-8")
+    DEPLOY_INDEX.write_text(text, encoding="utf-8")
     slides = text.count('<section class="slide')
     print(f"Built {OUT} — {slides} slides")
+    print(f"Deployed {DEPLOY_INDEX} (GitHub Pages root)")
 
 
 def main():
