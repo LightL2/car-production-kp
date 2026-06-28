@@ -73,11 +73,12 @@ TEAM_CSS = """
 .video-wrap{width:100%;max-width:960px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(0,122,255,.15)}
 .video-wrap video{display:block;width:100%;max-height:62vh;background:#000}
 .video-cap{margin-top:1.2vh;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--grey);text-transform:uppercase;text-align:center}
-.pf-grid{display:grid;gap:1.2vw;width:100%;height:100%;align-items:center}
+.pf-grid{display:grid;gap:1.2vw;width:100%;align-items:center;justify-items:stretch}
 .pf-grid.pf-2{grid-template-columns:1fr 1fr}
 .pf-grid.pf-1{grid-template-columns:1fr;max-width:920px;margin:0 auto}
-.pf-cell{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;height:100%;max-height:62vh;display:flex;align-items:center;justify-content:center}
-.pf-cell img{width:100%;height:100%;object-fit:cover}
+.portfolio-slide .body{justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
+.pf-cell{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;max-height:62vh}
+.pf-cell img{display:block;width:100%;height:auto;max-height:62vh;object-fit:contain;object-position:center}
 """
 
 

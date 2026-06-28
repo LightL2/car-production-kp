@@ -20,7 +20,11 @@ def usd(n):
 
 
 def uzs(n):
-    return f"{n:,.0f}".replace(",", " ")
+    return f"{n:,.0f}".replace(",", "\u202f")
+
+
+def uzs_html(n, suffix=" UZS"):
+    return f'<span class="nolink" x-apple-data-detectors="false">{uzs(n)}{html.escape(suffix)}</span>'
 
 
 def esc(s):
@@ -60,7 +64,7 @@ def total_row_dual(label, usd_val, uzs_val):
             <td class="totals">
               <div class="amt-pair">
                 <span class="amt-usd">{usd(usd_val)}</span>
-                <span class="amt-uzs">{uzs(uzs_val)} UZS</span>
+                <span class="amt-uzs">{uzs_html(uzs_val)}</span>
               </div>
             </td>
           </tr>"""
@@ -73,10 +77,10 @@ def budget_meta(shifts, total_usd, uzs_val=None, suffix=""):
         f"<span>итого <strong>{usd(total_usd)}</strong></span>",
     ]
     if uzs_val is not None:
-        parts += ['<span class="sep">·</span>', f"<span>{uzs(uzs_val)} UZS</span>"]
+        parts += ['<span class="sep">·</span>', f"<span class=\"nolink\" x-apple-data-detectors=\"false\">{uzs(uzs_val)} UZS</span>"]
     if suffix:
         parts += ['<span class="sep">·</span>', f"<span>{esc(suffix)}</span>"]
-    return f'<div class="budget-meta">{"".join(parts)}</div>'
+    return f'<div class="budget-meta" x-apple-data-detectors="false">{"".join(parts)}</div>'
 
 
 def overview_rows(block, expand_production=True, two_col=False):
@@ -165,10 +169,10 @@ def photo_overview_slide(d):
           <span class="tag-photo">Photo Unit</span>
           <h2 class="title" style="font-size:clamp(1.5rem,3vw,2.6rem)">Фотопроизводство</h2>
         </div>
-        <div class="price-card">
+        <div class="price-card" x-apple-data-detectors="false">
           <div class="plbl">Итого с налогами</div>
           <div class="pamt">{usd(b['overall_usd'])}</div>
-          <div class="psub">{uzs(b['overall_usd'] * d['rate'])} UZS</div>
+          <div class="psub">{uzs_html(b['overall_usd'] * d['rate'])}</div>
           <div class="pvat">{b['shifts']} съёмочных дня · курс {d['rate']:,} UZS/USD</div>
         </div>
       </div>
@@ -212,10 +216,10 @@ def video_overview_slide(d):
           <span class="tag-video">Video Production</span>
           <h2 class="title" style="font-size:clamp(1.5rem,3vw,2.6rem)">Видеопроизводство</h2>
         </div>
-        <div class="price-card">
+        <div class="price-card" x-apple-data-detectors="false">
           <div class="plbl">Итого с налогами</div>
           <div class="pamt">{usd(vt)}</div>
-          <div class="psub">{uzs(vt * d['rate'])} UZS</div>
+          <div class="psub">{uzs_html(vt * d['rate'])}</div>
           <div class="pvat">TVC {tvc['shifts']} + Overview {ov['shifts']} смены</div>
         </div>
       </div>
@@ -277,7 +281,7 @@ def summary_slide(d):
         <div class="split-budget" style="margin-top:0">
           <div class="budget-col photo">
             <div class="bl">Фото · Photo Unit</div>
-            <div class="bt">{usd(d['photo_total_usd'])}<span>{uzs(d['photo_total_uzs'])} UZS · {d['photo']['shifts']} смены</span></div>
+            <div class="bt">{usd(d['photo_total_usd'])}<span class="nolink" x-apple-data-detectors="false">{uzs(d['photo_total_uzs'])} UZS · {d['photo']['shifts']} смены</span></div>
             <ul class="blist muted" style="gap:.7vh">
               <li style="font-size:.82rem">Subtotal {usd(d['photo']['subtotal'])} + НДС {usd(d['photo']['vat'])}</li>
               <li style="font-size:.82rem">90 финальных кадров · 5 категорий</li>
@@ -285,17 +289,17 @@ def summary_slide(d):
           </div>
           <div class="budget-col video">
             <div class="bl" style="color:var(--white)">Видео · TVC + Overview</div>
-            <div class="bt">{usd(d['video_total_usd'])}<span>{uzs(d['video_total_uzs'])} UZS · {d['video_tvc']['shifts']}+{d['video_overview']['shifts']} смены</span></div>
+            <div class="bt">{usd(d['video_total_usd'])}<span class="nolink" x-apple-data-detectors="false">{uzs(d['video_total_uzs'])} UZS · {d['video_tvc']['shifts']}+{d['video_overview']['shifts']} смены</span></div>
             <ul class="blist muted" style="gap:.7vh">
               <li style="font-size:.82rem">TVC {usd(d['video_tvc']['overall_usd'])} · Overview {usd(d['video_overview']['overall_usd'])}</li>
               <li style="font-size:.82rem">8–12 роликов · 4K UHD</li>
             </ul>
           </div>
         </div>
-        <div class="total-block">
+        <div class="total-block" x-apple-data-detectors="false">
           <div class="tlbl">Общая стоимость проекта</div>
           <div class="tamt">{usd(d['grand_total_usd'])}</div>
-          <div class="tuzs">{uzs(d['grand_total_uzs'])} UZS</div>
+          <div class="tuzs">{uzs_html(d['grand_total_uzs'])}</div>
         </div>
       </div>
       <div class="note">Курс {d['rate']:,} UZS/USD (ЦБ). По каждому блоку начисляется НДС 12%, включён в итоговую стоимость.</div>"""

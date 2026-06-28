@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+<meta name="format-detection" content="telephone=no,date=no,address=no,email=no">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
 (function(){
@@ -211,6 +212,8 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
 .price-card .plbl{font-family:var(--mono);font-size:.62rem;letter-spacing:.2em;text-transform:uppercase;color:var(--grey);margin-bottom:.8vh;}
 .price-card .pamt{font-family:var(--display);font-weight:800;font-size:clamp(1.5rem,2.4vw,2.2rem);color:var(--accent);line-height:1;margin-bottom:.5vh;}
 .price-card .psub{font-family:var(--mono);font-size:.68rem;color:var(--white);margin-top:.9vh;letter-spacing:.04em;}
+.price-card,.total-block,.budget-col .bt,.budget-meta,.amt-pair{-webkit-tap-highlight-color:transparent;}
+.nolink{color:inherit!important;text-decoration:none!important;pointer-events:none;}
 .price-card .pvat{font-family:var(--mono);font-size:.6rem;color:var(--grey);margin-top:.5vh;text-transform:uppercase;letter-spacing:.1em;}
 
 .ptable{width:100%;border-collapse:collapse;font-size:clamp(.74rem,.95vw,.88rem);table-layout:fixed;}
@@ -761,10 +764,10 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
           <span class="tag-photo">Photo Unit</span>
           <h2 class="title" style="font-size:clamp(1.5rem,3vw,2.6rem)">Фотопроизводство</h2>
         </div>
-        <div class="price-card">
+        <div class="price-card" x-apple-data-detectors="false">
           <div class="plbl">Итого с налогами</div>
           <div class="pamt">$89 761</div>
-          <div class="psub">1 086 108 100 UZS</div>
+          <div class="psub"><span class="nolink" x-apple-data-detectors="false">1 086 108 100 UZS</span></div>
           <div class="pvat">3 съёмочных дня · курс 12,100 UZS/USD</div>
         </div>
       </div>
@@ -795,7 +798,7 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
       <div class="budget-head">
         <span class="tag-photo">Photo Unit · детализация</span>
         <h2 class="title" style="font-size:clamp(1.35rem,2.5vw,2.2rem)">Статьи расходов · фото</h2>
-        <div class="budget-meta"><span>3 смены</span><span class="sep">·</span><span>итого <strong>$89 761</strong></span><span class="sep">·</span><span>НДС включён</span></div>
+        <div class="budget-meta" x-apple-data-detectors="false"><span>3 смены</span><span class="sep">·</span><span>итого <strong>$89 761</strong></span><span class="sep">·</span><span>НДС включён</span></div>
       </div>
       <table class="ptable ptable-dense">
         <thead><tr><th>Статья</th><th>Кол-во</th><th>Ставка</th><th style="text-align:right">USD</th></tr></thead>
@@ -837,10 +840,10 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
           <span class="tag-video">Video Production</span>
           <h2 class="title" style="font-size:clamp(1.5rem,3vw,2.6rem)">Видеопроизводство</h2>
         </div>
-        <div class="price-card">
+        <div class="price-card" x-apple-data-detectors="false">
           <div class="plbl">Итого с налогами</div>
           <div class="pamt">$192 987</div>
-          <div class="psub">2 335 142 700 UZS</div>
+          <div class="psub"><span class="nolink" x-apple-data-detectors="false">2 335 142 700 UZS</span></div>
           <div class="pvat">TVC 2 + Overview 2 смены</div>
         </div>
       </div>
@@ -883,7 +886,7 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
             <td class="totals">
               <div class="amt-pair">
                 <span class="amt-usd">$192 987</span>
-                <span class="amt-uzs">2 335 142 700 UZS</span>
+                <span class="amt-uzs"><span class="nolink" x-apple-data-detectors="false">2 335 142 700 UZS</span></span>
               </div>
             </td>
           </tr>
@@ -902,7 +905,7 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
       <div class="budget-head">
         <span class="tag-video">TVC · детализация</span>
         <h2 class="title" style="font-size:clamp(1.35rem,2.5vw,2.2rem)">Статьи расходов · tvc</h2>
-        <div class="budget-meta"><span>2 смены</span><span class="sep">·</span><span>итого <strong>$109 439</strong></span><span class="sep">·</span><span>1 324 211 900 UZS</span></div>
+        <div class="budget-meta" x-apple-data-detectors="false"><span>2 смены</span><span class="sep">·</span><span>итого <strong>$109 439</strong></span><span class="sep">·</span><span class="nolink" x-apple-data-detectors="false">1 324 211 900 UZS</span></div>
       </div>
       <table class="ptable ptable-dense">
         <thead><tr><th>Статья</th><th>Кол-во</th><th>Ставка</th><th style="text-align:right">USD</th></tr></thead>
@@ -942,7 +945,7 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
       <div class="budget-head">
         <span class="tag-video">Overview · детализация</span>
         <h2 class="title" style="font-size:clamp(1.35rem,2.5vw,2.2rem)">Статьи расходов · overview</h2>
-        <div class="budget-meta"><span>2 смены</span><span class="sep">·</span><span>итого <strong>$83 548</strong></span><span class="sep">·</span><span>1 010 930 800 UZS</span></div>
+        <div class="budget-meta" x-apple-data-detectors="false"><span>2 смены</span><span class="sep">·</span><span>итого <strong>$83 548</strong></span><span class="sep">·</span><span class="nolink" x-apple-data-detectors="false">1 010 930 800 UZS</span></div>
       </div>
       <table class="ptable ptable-dense">
         <thead><tr><th>Статья</th><th>Кол-во</th><th>Ставка</th><th style="text-align:right">USD</th></tr></thead>
@@ -984,7 +987,7 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
         <div class="split-budget" style="margin-top:0">
           <div class="budget-col photo">
             <div class="bl">Фото · Photo Unit</div>
-            <div class="bt">$89 761<span>1 086 108 100 UZS · 3 смены</span></div>
+            <div class="bt">$89 761<span class="nolink" x-apple-data-detectors="false">1 086 108 100 UZS · 3 смены</span></div>
             <ul class="blist muted" style="gap:.7vh">
               <li style="font-size:.82rem">Subtotal $80 144 + НДС $9 617</li>
               <li style="font-size:.82rem">90 финальных кадров · 5 категорий</li>
@@ -992,17 +995,17 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
           </div>
           <div class="budget-col video">
             <div class="bl" style="color:var(--white)">Видео · TVC + Overview</div>
-            <div class="bt">$192 987<span>2 335 142 700 UZS · 2+2 смены</span></div>
+            <div class="bt">$192 987<span class="nolink" x-apple-data-detectors="false">2 335 142 700 UZS · 2+2 смены</span></div>
             <ul class="blist muted" style="gap:.7vh">
               <li style="font-size:.82rem">TVC $109 439 · Overview $83 548</li>
               <li style="font-size:.82rem">8–12 роликов · 4K UHD</li>
             </ul>
           </div>
         </div>
-        <div class="total-block">
+        <div class="total-block" x-apple-data-detectors="false">
           <div class="tlbl">Общая стоимость проекта</div>
           <div class="tamt">$282 748</div>
-          <div class="tuzs">3 421 250 800 UZS</div>
+          <div class="tuzs"><span class="nolink" x-apple-data-detectors="false">3 421 250 800 UZS</span></div>
         </div>
       </div>
       <div class="note">Курс 12,100 UZS/USD (ЦБ). По каждому блоку начисляется НДС 12%, включён в итоговую стоимость.</div>
@@ -1034,7 +1037,7 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
       <div class="cols cols-3" style="margin-top:3.5vh">
         <div class="card"><div class="num">Subtotal</div><h3>По блокам</h3><p>Фото · TVC · Overview</p></div>
         <div class="card"><div class="num">НДС</div><h3>12%</h3><p>К каждому блоку отдельно</p></div>
-        <div class="card"><div class="num">Курс</div><h3>12 100</h3><p>UZS/USD · ЦБ</p></div>
+        <div class="card" x-apple-data-detectors="false"><div class="num">Курс</div><h3 class="nolink">12&#8239;100</h3><p>UZS/USD · ЦБ</p></div>
       </div>
     </div>
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
