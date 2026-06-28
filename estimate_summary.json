@@ -1,0 +1,912 @@
+{
+  "tvc": {
+    "col": 0,
+    "title": "TVC",
+    "lines": [
+      {
+        "section": "1. Pre-Production",
+        "subgroup": null,
+        "name": "Креатив",
+        "qty": 1.0,
+        "rate": 4000.0,
+        "amount": 4000
+      },
+      {
+        "section": "1. Pre-Production",
+        "subgroup": null,
+        "name": "Исполнительный продюсер",
+        "qty": 1.0,
+        "rate": 3000.0,
+        "amount": 3000
+      },
+      {
+        "section": "1. Pre-Production",
+        "subgroup": null,
+        "name": "Линейный продюсер",
+        "qty": 1.0,
+        "rate": 1000.0,
+        "amount": 1000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Режиссер",
+        "qty": 1.0,
+        "rate": 5000.0,
+        "amount": 5000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "1AD",
+        "qty": 2.0,
+        "rate": 1200.0,
+        "amount": 2400
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Художник постановщик",
+        "qty": 2.0,
+        "rate": 700.0,
+        "amount": 1400
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Реквизитор",
+        "qty": 2.0,
+        "rate": 500.0,
+        "amount": 1000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Постановщики",
+        "qty": 8.0,
+        "rate": 75.0,
+        "amount": 600
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Кастинг",
+        "qty": 1.0,
+        "rate": 800.0,
+        "amount": 800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Каст",
+        "qty": 5.0,
+        "rate": 300.0,
+        "amount": 1500
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Стилист",
+        "qty": 2.0,
+        "rate": 800.0,
+        "amount": 1600
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Проработка по костюму",
+        "qty": 1.0,
+        "rate": 1000.0,
+        "amount": 1000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Художник по гримму",
+        "qty": 2.0,
+        "rate": 250.0,
+        "amount": 500
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Администратор площадки",
+        "qty": 2.0,
+        "rate": 300.0,
+        "amount": 600
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Администраторы",
+        "qty": 10.0,
+        "rate": 75.0,
+        "amount": 750
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Локейшн менеджер",
+        "qty": 1.0,
+        "rate": 2000.0,
+        "amount": 2000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Локации",
+        "qty": 1.0,
+        "rate": 3000.0,
+        "amount": 3000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "АХЧ",
+        "qty": 1.0,
+        "rate": 1200.0,
+        "amount": 1200
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Сервис",
+        "qty": 60.0,
+        "rate": 35.0,
+        "amount": 2100
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Оператор №1",
+        "qty": 2.0,
+        "rate": 2500.0,
+        "amount": 5000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Механик камеры",
+        "qty": 2.0,
+        "rate": 350.0,
+        "amount": 700
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "1АС",
+        "qty": 2.0,
+        "rate": 400.0,
+        "amount": 800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Гафер",
+        "qty": 2.0,
+        "rate": 400.0,
+        "amount": 800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Светоосветители",
+        "qty": 10.0,
+        "rate": 75.0,
+        "amount": 750
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Звукорежиссер",
+        "qty": 1.0,
+        "rate": 200.0,
+        "amount": 200
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Камера",
+        "qty": 2.0,
+        "rate": 600.0,
+        "amount": 1200
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Объективы",
+        "qty": 2.0,
+        "rate": 300.0,
+        "amount": 600
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Плейбек",
+        "qty": 2.0,
+        "rate": 400.0,
+        "amount": 800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Свет 1",
+        "qty": 2.0,
+        "rate": 2000.0,
+        "amount": 4000
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Пост продакшн продюсер",
+        "qty": 1.0,
+        "rate": 600.0,
+        "amount": 500.0
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Монтаж",
+        "qty": 1.0,
+        "rate": 1000.0,
+        "amount": 1000
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Цветокоррекция",
+        "qty": 1.0,
+        "rate": 800.0,
+        "amount": 800
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Саунд-дизайн",
+        "qty": 1.0,
+        "rate": 400.0,
+        "amount": 400
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Авиаперелеты",
+        "qty": 1.0,
+        "rate": 2000.0,
+        "amount": 2000
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Транспорт",
+        "qty": 1.0,
+        "rate": 1000.0,
+        "amount": 1000
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Логистика",
+        "qty": 1.0,
+        "rate": 5000.0,
+        "amount": 5000
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Переработки",
+        "qty": 1.0,
+        "rate": 2500.0,
+        "amount": 2500
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Непредвиденные обстоятельства",
+        "qty": 1.0,
+        "rate": 2000.0,
+        "amount": 2000
+      }
+    ],
+    "summary": [
+      {
+        "type": "Общая сумма",
+        "amount": 61500,
+        "row": 61
+      },
+      {
+        "type": "Mark up",
+        "amount": 12300,
+        "row": 63,
+        "pct": 0.2
+      },
+      {
+        "type": "Tax",
+        "amount": 1230,
+        "row": 64,
+        "pct": 0.02
+      },
+      {
+        "type": "Overall",
+        "amount": "Overall:",
+        "row": 65,
+        "uzs": null
+      }
+    ],
+    "subtotal": null,
+    "overall_usd": "Overall:",
+    "overall_uzs": null
+  },
+  "photo": {
+    "col": 5,
+    "title": "Photo Unit",
+    "lines": [
+      {
+        "section": "1. Pre-Production",
+        "subgroup": null,
+        "name": "Креатив",
+        "qty": 1.0,
+        "rate": 2000.0,
+        "amount": 2000
+      },
+      {
+        "section": "1. Pre-Production",
+        "subgroup": null,
+        "name": "Исполнительный продюсер",
+        "qty": 1.0,
+        "rate": 2500.0,
+        "amount": 2500
+      },
+      {
+        "section": "1. Pre-Production",
+        "subgroup": null,
+        "name": "Линейный продюсер",
+        "qty": 1.0,
+        "rate": 1000.0,
+        "amount": 1000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Арт директор",
+        "qty": 1.0,
+        "rate": 3000.0,
+        "amount": 3000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "1AD",
+        "qty": 3.0,
+        "rate": 600.0,
+        "amount": 1800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Художник постановщик",
+        "qty": 1.0,
+        "rate": 1800.0,
+        "amount": 1800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Постановщики",
+        "qty": 15.0,
+        "rate": 75.0,
+        "amount": 1125
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Мастер",
+        "qty": 3.0,
+        "rate": 300.0,
+        "amount": 900
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Администратор площадки",
+        "qty": 3.0,
+        "rate": 300.0,
+        "amount": 900
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Администраторы",
+        "qty": 15.0,
+        "rate": 75.0,
+        "amount": 1125
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Локации (Павилион)",
+        "qty": 1.0,
+        "rate": 300.0,
+        "amount": 300
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Локации (Экстерьер)",
+        "qty": 1.0,
+        "rate": 1500.0,
+        "amount": 1500
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "АХЧ",
+        "qty": 1.0,
+        "rate": 500.0,
+        "amount": 500
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Сервис",
+        "qty": 50.0,
+        "rate": 35.0,
+        "amount": 1750
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Фотограф",
+        "qty": 1.0,
+        "rate": 6000.0,
+        "amount": 6000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Ассистент фотографа",
+        "qty": 2.0,
+        "rate": 500.0,
+        "amount": 1000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "ИИ специалист",
+        "qty": 1.0,
+        "rate": 500.0,
+        "amount": 500
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Гафер",
+        "qty": 2.0,
+        "rate": 400.0,
+        "amount": 800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Светоосветители",
+        "qty": 20.0,
+        "rate": 75.0,
+        "amount": 1500
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Объективы",
+        "qty": 2.0,
+        "rate": 300.0,
+        "amount": 600
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Плейбек",
+        "qty": 2.0,
+        "rate": 400.0,
+        "amount": 800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Свет 1",
+        "qty": 2.0,
+        "rate": 1500.0,
+        "amount": 3000
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Пост продакшн продюсер",
+        "qty": 1.0,
+        "rate": 800.0,
+        "amount": 800
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Ретуш",
+        "qty": 1.0,
+        "rate": 1000.0,
+        "amount": 1000
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Цветокоррекция",
+        "qty": 1.0,
+        "rate": 1000.0,
+        "amount": 1000
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "ИИ генерация",
+        "qty": 1.0,
+        "rate": 1000.0,
+        "amount": 1000
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Авиаперелеты",
+        "qty": 1.0,
+        "rate": 1500.0,
+        "amount": 1500
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Транспорт",
+        "qty": 1.0,
+        "rate": 1500.0,
+        "amount": 1500
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Логистика",
+        "qty": 1.0,
+        "rate": 2500.0,
+        "amount": 2500
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Переработки",
+        "qty": 1.0,
+        "rate": 1500.0,
+        "amount": 1500
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Непредвиденные обстоятельства",
+        "qty": 1.0,
+        "rate": 2000.0,
+        "amount": 2000
+      }
+    ],
+    "summary": [
+      {
+        "type": "Общая сумма",
+        "amount": 45200,
+        "row": 53
+      },
+      {
+        "type": "Mark up",
+        "amount": 9040,
+        "row": 56,
+        "pct": 0.2
+      },
+      {
+        "type": "Tax",
+        "amount": 904,
+        "row": 57,
+        "pct": 0.02
+      },
+      {
+        "type": "Overall",
+        "amount": "Overall:",
+        "row": 58,
+        "uzs": null
+      }
+    ],
+    "subtotal": null,
+    "overall_usd": "Overall:",
+    "overall_uzs": null
+  },
+  "overview": {
+    "col": 10,
+    "title": "Overview Videos",
+    "lines": [
+      {
+        "section": "1. Pre-Production",
+        "subgroup": null,
+        "name": "Креатив",
+        "qty": 1.0,
+        "rate": 3000.0,
+        "amount": 3000
+      },
+      {
+        "section": "1. Pre-Production",
+        "subgroup": null,
+        "name": "Исполнительный продюсер",
+        "qty": 1.0,
+        "rate": 3000.0,
+        "amount": 3000
+      },
+      {
+        "section": "1. Pre-Production",
+        "subgroup": null,
+        "name": "Линейный продюсер",
+        "qty": 1.0,
+        "rate": 1000.0,
+        "amount": 1000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Режиссер",
+        "qty": 1.0,
+        "rate": 5000.0,
+        "amount": 5000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "1AD",
+        "qty": 2.0,
+        "rate": 600.0,
+        "amount": 1200
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Художник постановщик",
+        "qty": 2.0,
+        "rate": 700.0,
+        "amount": 1400
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Реквизитор",
+        "qty": 2.0,
+        "rate": 500.0,
+        "amount": 1000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Постановщики",
+        "qty": 12.0,
+        "rate": 75.0,
+        "amount": 900
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Мастер",
+        "qty": 2.0,
+        "rate": 800.0,
+        "amount": 1600
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Администратор площадки",
+        "qty": 2.0,
+        "rate": 300.0,
+        "amount": 600
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Администраторы",
+        "qty": 10.0,
+        "rate": 75.0,
+        "amount": 750
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Локации (Павилион)",
+        "qty": 2.0,
+        "rate": 300.0,
+        "amount": 600
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "АХЧ",
+        "qty": 2.0,
+        "rate": 500.0,
+        "amount": 1000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Сервис",
+        "qty": 50.0,
+        "rate": 35.0,
+        "amount": 1750
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Оператор №1",
+        "qty": 2.0,
+        "rate": 1000.0,
+        "amount": 2000
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Механик камеры",
+        "qty": 2.0,
+        "rate": 350.0,
+        "amount": 700
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "1АС",
+        "qty": 2.0,
+        "rate": 400.0,
+        "amount": 800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Гафер",
+        "qty": 2.0,
+        "rate": 400.0,
+        "amount": 800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Светоосветители",
+        "qty": 10.0,
+        "rate": 75.0,
+        "amount": 750
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Камера",
+        "qty": 2.0,
+        "rate": 600.0,
+        "amount": 1200
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Объективы",
+        "qty": 2.0,
+        "rate": 300.0,
+        "amount": 600
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Плейбек",
+        "qty": 2.0,
+        "rate": 400.0,
+        "amount": 800
+      },
+      {
+        "section": "2. Production (съемочный процесс)",
+        "subgroup": null,
+        "name": "Свет 1",
+        "qty": 2.0,
+        "rate": 2000.0,
+        "amount": 4000
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Пост продакшн продюсер",
+        "qty": 1.0,
+        "rate": 800.0,
+        "amount": 500.0
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Монтаж",
+        "qty": 1.0,
+        "rate": 800.0,
+        "amount": 800
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Цветокоррекция",
+        "qty": 1.0,
+        "rate": 500.0,
+        "amount": 500
+      },
+      {
+        "section": "3. Post-production",
+        "subgroup": null,
+        "name": "Саунд-дизайн",
+        "qty": 1.0,
+        "rate": 200.0,
+        "amount": 200
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Авиаперелеты",
+        "qty": 1.0,
+        "rate": 2000.0,
+        "amount": 2000
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Транспорт",
+        "qty": 1.0,
+        "rate": 1000.0,
+        "amount": 1000
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Логистика",
+        "qty": 1.0,
+        "rate": 5000.0,
+        "amount": 5000
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Переработки",
+        "qty": 1.0,
+        "rate": 2500.0,
+        "amount": 2500
+      },
+      {
+        "section": "4. Прочее",
+        "subgroup": null,
+        "name": "Непредвиденные обстоятельства",
+        "qty": 1.0,
+        "rate": 2000.0,
+        "amount": 2000
+      }
+    ],
+    "summary": [
+      {
+        "type": "Общая сумма",
+        "amount": 46950,
+        "row": 54
+      },
+      {
+        "type": "Mark up",
+        "amount": 9390,
+        "row": 57,
+        "pct": 0.2
+      },
+      {
+        "type": "Tax",
+        "amount": 939,
+        "row": 58,
+        "pct": 0.02
+      },
+      {
+        "type": "Overall",
+        "amount": "Overall:",
+        "row": 59,
+        "uzs": null
+      }
+    ],
+    "subtotal": null,
+    "overall_usd": "Overall:",
+    "overall_uzs": null
+  }
+}

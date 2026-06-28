@@ -1,0 +1,183 @@
+# -*- coding: utf-8 -*-
+"""Shared team/portfolio slide content (from Anor PPTX, no Anor logos)."""
+import shutil
+from pathlib import Path
+
+ROOT = Path(__file__).parent
+SRC = ROOT / "pptx_extract"
+ASSETS = ROOT / "assets" / "team"
+
+COPY_MAP = {
+    "image3.png": "egor-portrait.png",
+    "image4.png": "egor-brands.png",
+    "image5.jpeg": "egor-reel-poster.jpg",
+    "VAHN31fgG5o.mp4": "egor-reel.mp4",
+    "image6.png": "pavel-portrait.png",
+    "image7.png": "pavel-brands.png",
+    "image8.jpeg": "pavel-reel-poster.jpg",
+    "VAHN4BbB-As.mp4": "pavel-reel.mp4",
+    "image9.png": "theo-portrait.png",
+    "image10.png": "theo-brands.png",
+    "image11.jpeg": "portfolio-01.jpg",
+    "image12.jpeg": "portfolio-02.jpg",
+    "image13.jpeg": "portfolio-03.jpg",
+    "image14.jpeg": "portfolio-04.jpg",
+    "image15.jpeg": "portfolio-05.jpg",
+}
+
+TEAM = [
+    {
+        "name": "Егор Иванов",
+        "role": "Режиссёр-постановщик",
+        "tag": "KZ",
+        "bio": "Выпускник New York Film Academy, бывший документалист, а теперь — режиссёр рекламы и бренд-контента, который одинаково вдохновляется няшными детишками, контактными видами спорта и рёвом тяжёлой техники.",
+        "portrait": "egor-portrait.png",
+        "brands": "egor-brands.png",
+        "reel": "egor-reel.mp4",
+        "poster": "egor-reel-poster.jpg",
+    },
+    {
+        "name": "Павел Янкевич",
+        "role": "Оператор-постановщик",
+        "tag": "KZ",
+        "bio": "Путь Паши в кино начался в ГИТРе (Москва), где он пять лет осваивал операторское мастерство, параллельно набираясь практического опыта, ассистируя на съёмках короткометражек во ВГИКе, ГИТРе, Московской школе кино и на других студенческих и независимых площадках.",
+        "portrait": "pavel-portrait.png",
+        "brands": "pavel-brands.png",
+        "reel": "pavel-reel.mp4",
+        "poster": "pavel-reel-poster.jpg",
+    },
+    {
+        "name": "Тео Госеллин",
+        "role": "Фотограф",
+        "tag": "FR",
+        "bio": "Тео — фотограф из Парижа, Франция, работающий на высоком международном уровне. Его стиль отличается тонким чувством света, композиции и современной визуальной эстетикой, благодаря чему он сотрудничает с брендами и креативными проектами в Европе.",
+        "portrait": "theo-portrait.png",
+        "brands": "theo-brands.png",
+    },
+]
+
+PORTFOLIO = [
+    ("portfolio-01.jpg", "portfolio-02.jpg"),
+    ("portfolio-03.jpg",),
+    ("portfolio-04.jpg", "portfolio-05.jpg"),
+]
+
+TEAM_CSS = """
+/* team & portfolio slides */
+.team-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:3vw;align-items:center;width:100%}
+.team-role{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:1.6vh}
+.team-visual{display:flex;flex-direction:column;gap:1.5vh;align-items:center}
+.team-portrait{width:100%;max-height:42vh;object-fit:contain;object-position:center bottom}
+.team-brands{width:100%;max-height:16vh;object-fit:contain;opacity:.95}
+.video-slide .body{justify-content:center;align-items:center}
+.video-wrap{width:100%;max-width:960px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(0,122,255,.15)}
+.video-wrap video{display:block;width:100%;max-height:62vh;background:#000}
+.video-cap{margin-top:1.2vh;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--grey);text-transform:uppercase;text-align:center}
+.pf-grid{display:grid;gap:1.2vw;width:100%;height:100%;align-items:center}
+.pf-grid.pf-2{grid-template-columns:1fr 1fr}
+.pf-grid.pf-1{grid-template-columns:1fr;max-width:920px;margin:0 auto}
+.pf-cell{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;height:100%;max-height:62vh;display:flex;align-items:center;justify-content:center}
+.pf-cell img{width:100%;height:100%;object-fit:cover}
+"""
+
+
+def esc(s):
+    return (
+        str(s)
+        .replace("&", "&amp;")
+        .replace("<", "&lt;")
+        .replace(">", "&gt;")
+        .replace('"', "&quot;")
+    )
+
+
+def copy_team_assets():
+    ASSETS.mkdir(parents=True, exist_ok=True)
+    for src_name, dst_name in COPY_MAP.items():
+        src = SRC / src_name
+        if not src.exists():
+            raise FileNotFoundError(f"Missing {src} — run _extract_pptx / unzip PPTX media first")
+        shutil.copy2(src, ASSETS / dst_name)
+
+
+def team_intro_slide():
+    return """  <!-- TEAM INTRO -->
+  <section class="slide mesh center-v">
+    <div class="orb orb-2"></div>
+    <div class="topbar"><span class="tag">КОМАНДА</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <div class="kicker">Production team</div>
+      <h2 class="title">Команда<br>проекта</h2>
+      <p class="lead" style="margin-top:2vh">Режиссёр, оператор и фотограф с международным опытом. Showreel и портфолио — без брендинга субподрядчиков, только 8BIT-MEDIA.</p>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+"""
+
+
+def team_member_slide(member):
+    return f"""  <section class="slide mesh">
+    <div class="topbar"><span class="tag">КОМАНДА · {esc(member['tag'])}</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <div class="team-grid">
+        <div class="team-copy">
+          <div class="kicker">Production team</div>
+          <h2 class="title">{esc(member['name'])}</h2>
+          <div class="team-role">{esc(member['role'])}</div>
+          <p class="lead">{esc(member['bio'])}</p>
+        </div>
+        <div class="team-visual">
+          <img class="team-portrait" src="assets/team/{member['portrait']}" alt="{esc(member['name'])}">
+          <img class="team-brands" src="assets/team/{member['brands']}" alt="Бренды">
+        </div>
+      </div>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+"""
+
+
+def team_reel_slide(member):
+    return f"""  <section class="slide video-slide mesh">
+    <div class="topbar"><span class="tag">SHOWREEL · {esc(member['name'].split()[0].upper())}</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <div class="video-wrap">
+        <video controls playsinline preload="metadata" poster="assets/team/{member['poster']}">
+          <source src="assets/team/{member['reel']}" type="video/mp4">
+        </video>
+      </div>
+      <div class="video-cap">{esc(member['name'])} · {esc(member['role'])}</div>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+"""
+
+
+def team_portfolio_slide(images, label):
+    cells = "".join(
+        f'<div class="pf-cell"><img src="assets/team/{img}" alt=""></div>' for img in images
+    )
+    cols = "pf-1" if len(images) == 1 else "pf-2"
+    return f"""  <section class="slide portfolio-slide mesh">
+    <div class="topbar"><span class="tag">ПОРТФОЛИО · {esc(label)}</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <div class="pf-grid {cols}">{cells}</div>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+"""
+
+
+def build_team_slides_html(intro=True):
+    parts = ["<!-- TEAM_START -->"]
+    if intro:
+        parts.append(team_intro_slide())
+    for member in TEAM:
+        parts.append(team_member_slide(member))
+        if member.get("reel"):
+            parts.append(team_reel_slide(member))
+    labels = ["Фото · 01", "Фото · 02", "Фото · 03"]
+    for imgs, label in zip(PORTFOLIO, labels):
+        parts.append(team_portfolio_slide(imgs, label))
+    parts.append("<!-- TEAM_END -->")
+    return "\n".join(parts) + "\n"
