@@ -106,12 +106,12 @@ TEAM_CSS = """
 .video-wrap{width:100%;max-width:960px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(0,122,255,.15)}
 .video-wrap video{display:block;width:100%;max-height:62vh;background:#000}
 .video-cap{margin-top:1.2vh;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--grey);text-transform:uppercase;text-align:center}
-.pf-grid{display:flex;flex-wrap:wrap;gap:1.2vw;align-items:center;justify-content:center;width:100%;margin:0 auto}
-.pf-grid.pf-2{max-width:100%}
-.pf-grid.pf-1{max-width:920px}
+.pf-grid{display:grid;gap:1.2vw;justify-content:center;justify-items:center;align-items:center;width:max-content;max-width:100%;margin:0 auto}
+.pf-grid.pf-2{grid-template-columns:repeat(2,max-content)}
+.pf-grid.pf-1{grid-template-columns:max-content;max-width:920px}
 .portfolio-slide .body,.sample-slide .body{display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
-.pf-cell{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;display:inline-flex;align-items:center;justify-content:center;max-height:62vh;width:auto;max-width:min(48vw,920px);flex:0 1 auto}
-.pf-cell img{display:block;width:auto;height:auto;max-width:100%;max-height:62vh;object-fit:contain;object-position:center}
+.pf-cell{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;max-height:58vh;width:max-content;max-width:min(44vw,880px)}
+.pf-cell img{display:block;width:auto;height:auto;max-width:min(44vw,880px);max-height:58vh;object-fit:contain;object-position:center}
 .byd-slide .body{display:flex;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
 .byd-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:2.2vw;align-items:center;width:100%}
 .byd-copy .lead{max-width:44ch}
@@ -122,7 +122,6 @@ TEAM_CSS = """
 .byd-vid-port video{max-height:34vh}
 .byd-vid-land video{max-height:19vh}
 .byd-vid-cap{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);text-align:center;padding:.75vh .6vw;border-top:1px solid var(--line);width:100%;align-self:stretch}
-.sample-slide .body{display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
 .sample-head{margin-bottom:1.4vh;text-align:center;width:100%;flex-shrink:0}
 .sample-loc{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 """
