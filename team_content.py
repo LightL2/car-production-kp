@@ -107,10 +107,10 @@ def team_intro_slide():
     <div class="orb orb-2"></div>
     <div class="topbar"><span class="tag">КОМАНДА</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
-      <div class="kicker">8BIT Production Network</div>
+      <div class="kicker">Международная production-сеть</div>
       <h2 class="title">Команда<br>проекта</h2>
-      <p class="lead" style="margin-top:2vh">Для этого проекта 8BIT-MEDIA выводит на ключевые роли специалистов из нашей международной production-сети&nbsp;— режиссёра, оператора и&nbsp;фотографа, с&nbsp;которыми агентство работает на&nbsp;постоянной основе.</p>
-      <p class="lead muted" style="margin-top:1.8vh;max-width:52ch">Это наши люди: постоянные партнёры 8BIT, а&nbsp;не&nbsp;разовый субподряд. За&nbsp;каждым&nbsp;— опыт съёмок для крупнейших мировых брендов. На&nbsp;проекте они действуют как единая команда агентства&nbsp;— под управлением, стандартами и&nbsp;ответственностью 8BIT-MEDIA.</p>
+      <p class="lead" style="margin-top:2vh">На&nbsp;крупных продакшн-проектах 8BIT-MEDIA работает с&nbsp;зарубежными партнёрами из&nbsp;международной production-сети&nbsp;— режиссёрами, операторами и&nbsp;фотографами, которых мы&nbsp;подключаем на&nbsp;масштабные съёмочные сессии.</p>
+      <p class="lead muted" style="margin-top:1.8vh;max-width:54ch">Реализацию для BYD ведут специалисты с&nbsp;опытом automotive-проектов: мы&nbsp;понимаем, какой уровень качества требуется от&nbsp;материалов, и&nbsp;выстроили процесс под эти стандарты. Координацию съёмки и&nbsp;контроль сдачи обеспечивает 8BIT-MEDIA.</p>
     </div>
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
