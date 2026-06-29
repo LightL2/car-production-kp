@@ -61,6 +61,20 @@ PORTFOLIO = [
     ("portfolio-04.jpg", "portfolio-05.jpg"),
 ]
 
+# Чередование: портфолио Тео (экстерьер) ↔ примеры Алматы
+EXTERIOR_GALLERY = [
+    ("theo", ("portfolio-01.jpg", "portfolio-02.jpg"), "01"),
+    ("almaty", ("VM_13084.jpg", "VM_12795.jpg"), "01"),
+    ("theo", ("portfolio-03.jpg",), "02"),
+    ("almaty", ("VM_12450.jpg", "VM_11629.jpg"), "02"),
+    ("theo", ("portfolio-04.jpg", "portfolio-05.jpg"), "03"),
+]
+
+INTERIOR_GALLERY = [
+    ("almaty", ("VM_13259.jpg", "VM_13310.jpg"), "01"),
+    ("almaty", ("VM_13327.jpg",), "02"),
+]
+
 BYD_REELS_TOP = [
     ("denza-35.mp4", "DENZA"),
     ("byd-cinematic.mp4", "BYD · cinematic"),
@@ -111,6 +125,8 @@ TEAM_CSS = """
 .sample-slide .body{justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
 .sample-head{margin-bottom:1.4vh;text-align:center;width:100%}
 .sample-loc{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.gallery-section .body{align-items:center;text-align:center}
+.gallery-section .title{font-size:clamp(2rem,5vw,3.8rem)!important}
 """
 
 
@@ -202,46 +218,64 @@ def team_reel_slide(member):
 """
 
 
-def team_portfolio_slide(images, label):
-    cells = "".join(
-        f'<div class="pf-cell"><img src="assets/team/{img}" alt=""></div>' for img in images
-    )
-    cols = "pf-1" if len(images) == 1 else "pf-2"
-    return f"""  <section class="slide portfolio-slide mesh">
-    <div class="topbar"><span class="tag">ПОРТФОЛИО · {esc(label)}</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+def photo_section_slide(title, subtitle):
+    return f"""  <section class="slide mesh center-v compact gallery-section">
+    <div class="orb orb-2"></div>
+    <div class="topbar"><span class="tag">ПОРТФОЛИО · ТЕО ГОСЕЛЛИН</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
-      <div class="pf-grid {cols}">{cells}</div>
+      <div class="kicker">Фотограф · {esc(title)}</div>
+      <h2 class="title">{esc(title)}</h2>
+      <p class="lead muted" style="margin-top:2vh;max-width:52ch;margin-left:auto;margin-right:auto">{subtitle}</p>
     </div>
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 """
 
 
-def almaty_sample_slide(kind, images, page):
-    folder = "ext" if kind == "ext" else "int"
-    tag = "ЭКСТЕРЬЕР" if kind == "ext" else "ИНТЕРЬЕР"
-    cells = "".join(
-        f'<div class="pf-cell"><img src="assets/almaty/{folder}/{esc(img)}" alt=""></div>'
-        for img in images
-    )
+def gallery_slide(source, images, page, kind):
+    if source == "theo":
+        tag = f"ПОРТФОЛИО · ТЕО · {kind.upper()} · {page}"
+        cells = "".join(
+            f'<div class="pf-cell"><img src="assets/team/{esc(img)}" alt=""></div>'
+            for img in images
+        )
+        loc = ""
+    else:
+        folder = "ext" if kind == "ext" else "int"
+        tag = f"ПРИМЕРЫ · {kind.upper()} · {page}"
+        cells = "".join(
+            f'<div class="pf-cell"><img src="assets/almaty/{folder}/{esc(img)}" alt=""></div>'
+            for img in images
+        )
+        loc = f'      <div class="sample-head"><div class="sample-loc">{ALMATY_LOC}</div></div>\n'
     cols = "pf-1" if len(images) == 1 else "pf-2"
     return f"""  <section class="slide portfolio-slide sample-slide mesh compact">
-    <div class="topbar"><span class="tag">ПРИМЕРЫ · {tag} · {esc(page)}</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="topbar"><span class="tag">{tag}</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
-      <div class="sample-head"><div class="sample-loc">{ALMATY_LOC}</div></div>
-      <div class="pf-grid {cols}">{cells}</div>
+{loc}      <div class="pf-grid {cols}">{cells}</div>
     </div>
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 """
 
 
-def build_almaty_sample_slides():
-    parts = []
-    for i, group in enumerate(ALMATY_EXT, 1):
-        parts.append(almaty_sample_slide("ext", group, f"{i:02d}"))
-    for i, group in enumerate(ALMATY_INT, 1):
-        parts.append(almaty_sample_slide("int", group, f"{i:02d}"))
+def build_photo_gallery():
+    parts = [
+        photo_section_slide(
+            "Экстерьер",
+            "Работы фотографа и&nbsp;примеры съёмок — вперемешку, в&nbsp;единой логике блока.",
+        ),
+    ]
+    for source, images, page in EXTERIOR_GALLERY:
+        parts.append(gallery_slide(source, images, page, "ext"))
+    parts.append(
+        photo_section_slide(
+            "Интерьер",
+            f"Примеры интерьерной съёмки. {ALMATY_LOC}.",
+        )
+    )
+    for source, images, page in INTERIOR_GALLERY:
+        parts.append(gallery_slide(source, images, page, "int"))
     return parts
 
 
@@ -289,10 +323,8 @@ def build_team_slides_html(intro=True):
         parts.append(team_member_slide(member))
         if member.get("reel"):
             parts.append(team_reel_slide(member))
-    labels = ["Фото · 01", "Фото · 02", "Фото · 03"]
-    for imgs, label in zip(PORTFOLIO, labels):
-        parts.append(team_portfolio_slide(imgs, label))
+        if member["name"] == "Тео Госеллин":
+            parts.extend(build_photo_gallery())
     parts.append(byd_experience_slide())
-    parts.extend(build_almaty_sample_slides())
     parts.append("<!-- TEAM_END -->")
     return "\n".join(parts) + "\n"
