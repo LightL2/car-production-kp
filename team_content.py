@@ -125,8 +125,6 @@ TEAM_CSS = """
 .sample-slide .body{justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
 .sample-head{margin-bottom:1.4vh;text-align:center;width:100%}
 .sample-loc{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
-.gallery-section .body{align-items:center;text-align:center}
-.gallery-section .title{font-size:clamp(2rem,5vw,3.8rem)!important}
 """
 
 
@@ -218,20 +216,6 @@ def team_reel_slide(member):
 """
 
 
-def photo_section_slide(title, subtitle):
-    return f"""  <section class="slide mesh center-v compact gallery-section">
-    <div class="orb orb-2"></div>
-    <div class="topbar"><span class="tag">ПОРТФОЛИО · ТЕО ГОСЕЛЛИН</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
-    <div class="body">
-      <div class="kicker">Фотограф · {esc(title)}</div>
-      <h2 class="title">{esc(title)}</h2>
-      <p class="lead muted" style="margin-top:2vh;max-width:52ch;margin-left:auto;margin-right:auto">{subtitle}</p>
-    </div>
-    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
-  </section>
-"""
-
-
 def gallery_slide(source, images, page, kind):
     if source == "theo":
         tag = f"ПОРТФОЛИО · ТЕО · {kind.upper()} · {page}"
@@ -260,20 +244,9 @@ def gallery_slide(source, images, page, kind):
 
 
 def build_photo_gallery():
-    parts = [
-        photo_section_slide(
-            "Экстерьер",
-            "Работы фотографа и&nbsp;примеры съёмок — вперемешку, в&nbsp;единой логике блока.",
-        ),
-    ]
+    parts = []
     for source, images, page in EXTERIOR_GALLERY:
         parts.append(gallery_slide(source, images, page, "ext"))
-    parts.append(
-        photo_section_slide(
-            "Интерьер",
-            f"Примеры интерьерной съёмки. {ALMATY_LOC}.",
-        )
-    )
     for source, images, page in INTERIOR_GALLERY:
         parts.append(gallery_slide(source, images, page, "int"))
     return parts
