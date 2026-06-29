@@ -68,6 +68,19 @@ BYD_REELS_TOP = [
 BYD_REEL_LAND = ("byd-4x3-final.mp4", "BYD · 4×3")
 BYD_ASSETS = "assets/byd"
 
+ALMATY_EXT = [
+    ("VM_13084.jpg", "VM_12795.jpg"),
+    ("VM_12450.jpg", "VM_11629.jpg"),
+]
+ALMATY_INT = [
+    ("VM_13259.jpg", "VM_13310.jpg"),
+    ("VM_13327.jpg",),
+]
+ALMATY_LOC = "Съёмка · г. Алматы, Казахстан"
+INT_SRC = ROOT / "int"
+EXT_SRC = ROOT / "ext"
+ALMATY_ASSETS = ROOT / "assets" / "almaty"
+
 TEAM_CSS = """
 /* team & portfolio slides */
 .team-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:3vw;align-items:center;width:100%}
@@ -95,6 +108,9 @@ TEAM_CSS = """
 .byd-vid-port video{max-height:34vh}
 .byd-vid-land video{max-height:19vh}
 .byd-vid-cap{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);text-align:center;padding:.75vh .6vw;border-top:1px solid var(--line);width:100%;align-self:stretch}
+.sample-slide .body{justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
+.sample-head{margin-bottom:1.4vh;text-align:center;width:100%}
+.sample-loc{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 """
 
 
@@ -115,6 +131,21 @@ def copy_team_assets():
         if not src.exists():
             raise FileNotFoundError(f"Missing {src} — run _extract_pptx / unzip PPTX media first")
         shutil.copy2(src, ASSETS / dst_name)
+
+
+def copy_almaty_samples():
+    for kind, groups, src_dir in (
+        ("ext", ALMATY_EXT, EXT_SRC),
+        ("int", ALMATY_INT, INT_SRC),
+    ):
+        dst_dir = ALMATY_ASSETS / kind
+        dst_dir.mkdir(parents=True, exist_ok=True)
+        for group in groups:
+            for img in group:
+                src = src_dir / img
+                if not src.exists():
+                    raise FileNotFoundError(f"Missing {src}")
+                shutil.copy2(src, dst_dir / img)
 
 
 def team_intro_slide():
@@ -186,6 +217,34 @@ def team_portfolio_slide(images, label):
 """
 
 
+def almaty_sample_slide(kind, images, page):
+    folder = "ext" if kind == "ext" else "int"
+    tag = "ЭКСТЕРЬЕР" if kind == "ext" else "ИНТЕРЬЕР"
+    cells = "".join(
+        f'<div class="pf-cell"><img src="assets/almaty/{folder}/{esc(img)}" alt=""></div>'
+        for img in images
+    )
+    cols = "pf-1" if len(images) == 1 else "pf-2"
+    return f"""  <section class="slide portfolio-slide sample-slide mesh compact">
+    <div class="topbar"><span class="tag">ПРИМЕРЫ · {tag} · {esc(page)}</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <div class="sample-head"><div class="sample-loc">{ALMATY_LOC}</div></div>
+      <div class="pf-grid {cols}">{cells}</div>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+"""
+
+
+def build_almaty_sample_slides():
+    parts = []
+    for i, group in enumerate(ALMATY_EXT, 1):
+        parts.append(almaty_sample_slide("ext", group, f"{i:02d}"))
+    for i, group in enumerate(ALMATY_INT, 1):
+        parts.append(almaty_sample_slide("int", group, f"{i:02d}"))
+    return parts
+
+
 def byd_vid_cell(file, label, kind="port"):
     cls = "byd-vid-port" if kind == "port" else "byd-vid-land"
     return f"""        <div class="byd-vid {cls}">
@@ -234,5 +293,6 @@ def build_team_slides_html(intro=True):
     for imgs, label in zip(PORTFOLIO, labels):
         parts.append(team_portfolio_slide(imgs, label))
     parts.append(byd_experience_slide())
+    parts.extend(build_almaty_sample_slides())
     parts.append("<!-- TEAM_END -->")
     return "\n".join(parts) + "\n"

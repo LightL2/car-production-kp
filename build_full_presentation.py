@@ -5,7 +5,7 @@ import subprocess
 import sys
 from pathlib import Path
 
-from team_content import TEAM_CSS, build_team_slides_html, copy_team_assets
+from team_content import TEAM_CSS, build_team_slides_html, copy_almaty_samples, copy_team_assets
 
 ROOT = Path(__file__).parent
 INDEX = ROOT / "kp.html"
@@ -50,6 +50,7 @@ def refresh_budget_in_index():
 
 def build():
     copy_team_assets()
+    copy_almaty_samples()
     text = INDEX.read_text(encoding="utf-8")
 
     if TEAM_CSS.strip() not in text:
