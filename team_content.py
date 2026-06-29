@@ -71,8 +71,9 @@ BYD_REEL_LAND = ("byd-4x3-final.mp4", "BYD · 4×3")
 BYD_ASSETS = "assets/byd"
 
 ALMATY_EXT = [
-    ("VM_13084.jpg", "VM_12795.jpg", "VM_12177.jpg"),
-    ("VM_12450.jpg", "VM_11629.jpg", "VM_12849.jpg"),
+    ("1.jpg", "2.jpg"),
+    ("3.jpg", "4.jpg"),
+    ("5.jpg", "6.jpg"),
 ]
 ALMATY_INT = [
     ("VM_13259.jpg", "VM_13310.jpg", "VM_12198.jpg"),
@@ -95,7 +96,7 @@ TEAM_CSS = """
 .video-wrap video{display:block;width:100%;max-height:62vh;background:#000}
 .video-cap{margin-top:1.2vh;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--grey);text-transform:uppercase;text-align:center}
 .pf-grid{display:grid;gap:1.1vw;justify-content:center;justify-items:center;align-items:center;width:max-content;max-width:96vw;margin:0 auto}
-.pf-grid.pf-2{grid-template-columns:repeat(2,max-content);gap:1.5vw}
+.pf-grid.pf-2{grid-template-columns:repeat(2,max-content);gap:1.2vw}
 .pf-grid.pf-3{grid-template-columns:repeat(3,max-content);gap:1.1vw}
 .pf-grid.pf-1{grid-template-columns:max-content;max-width:96vw}
 .slide.portfolio-slide > .body,.slide.sample-slide > .body{flex:1 1 0;min-height:0;width:100%;padding:0;overflow:visible}
@@ -113,8 +114,8 @@ TEAM_CSS = """
 .pf-cell:hover{box-shadow:0 32px 100px rgba(0,0,0,.7),0 0 28px rgba(0,122,255,.18),0 0 0 1px rgba(0,122,255,.22),inset 0 1px 0 rgba(255,255,255,.09)}
 .pf-grid.pf-1 .pf-cell{max-width:min(90vw,1320px);max-height:74vh;width:max-content}
 .pf-grid.pf-1 .pf-cell img{max-width:min(90vw,1320px);max-height:74vh}
-.pf-grid.pf-2 .pf-cell{max-width:min(50vw,980px);max-height:70vh;width:max-content}
-.pf-grid.pf-2 .pf-cell img{max-width:min(50vw,980px);max-height:70vh}
+.pf-grid.pf-2 .pf-cell{max-width:min(56vw,1080px);max-height:76vh;width:max-content}
+.pf-grid.pf-2 .pf-cell img{max-width:min(56vw,1080px);max-height:76vh}
 .pf-grid.pf-3 .pf-cell{max-width:min(32vw,680px);max-height:64vh;width:max-content}
 .pf-grid.pf-3 .pf-cell img{max-width:min(32vw,680px);max-height:64vh}
 .pf-cell img{display:block;width:auto;height:auto;object-fit:contain;object-position:center}
@@ -159,12 +160,16 @@ def copy_almaty_samples():
     ):
         dst_dir = ALMATY_ASSETS / kind
         dst_dir.mkdir(parents=True, exist_ok=True)
+        wanted = {img for group in groups for img in group}
         for group in groups:
             for img in group:
                 src = src_dir / img
                 if not src.exists():
                     raise FileNotFoundError(f"Missing {src}")
                 shutil.copy2(src, dst_dir / img)
+        for existing in dst_dir.iterdir():
+            if existing.is_file() and existing.name not in wanted:
+                existing.unlink()
 
 
 def team_intro_slide():
