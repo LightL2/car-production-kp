@@ -62,6 +62,12 @@ PORTFOLIO = [
     ("portfolio-04.jpg", "portfolio-05.jpg"),
 ]
 
+BYD_REELS = [
+    ("byd-cinematic.mp4", "BYD · cinematic"),
+    ("byd-4x3-final.mp4", "BYD · 4×3"),
+    ("denza-35.mp4", "DENZA"),
+]
+
 TEAM_CSS = """
 /* team & portfolio slides */
 .team-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:3vw;align-items:center;width:100%}
@@ -79,6 +85,13 @@ TEAM_CSS = """
 .portfolio-slide .body{justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
 .pf-cell{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;max-height:62vh}
 .pf-cell img{display:block;width:100%;height:auto;max-height:62vh;object-fit:contain;object-position:center}
+.byd-slide .body{justify-content:center;padding-top:0;padding-bottom:0}
+.byd-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:2.5vw;align-items:center;width:100%}
+.byd-copy .lead{max-width:46ch}
+.byd-videos{display:grid;grid-template-columns:repeat(3,1fr);gap:.9vw;width:100%}
+.byd-vid{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;display:flex;flex-direction:column}
+.byd-vid video{display:block;width:100%;height:auto;max-height:44vh;background:#000;object-fit:contain}
+.byd-vid-cap{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);text-align:center;padding:.8vh .4vw;border-top:1px solid var(--line)}
 """
 
 
@@ -170,6 +183,37 @@ def team_portfolio_slide(images, label):
 """
 
 
+def byd_experience_slide():
+    vids = "".join(
+        f"""        <div class="byd-vid">
+          <video controls playsinline preload="metadata">
+            <source src="assets/{esc(file)}" type="video/mp4">
+          </video>
+          <div class="byd-vid-cap">{esc(label)}</div>
+        </div>\n"""
+        for file, label in BYD_REELS
+    )
+    return f"""  <!-- BYD EXPERIENCE -->
+  <section class="slide byd-slide mesh compact">
+    <div class="orb orb-2"></div>
+    <div class="topbar"><span class="tag">BYD &amp; DENZA · ОПЫТ</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <div class="byd-grid">
+        <div class="byd-copy">
+          <div class="kicker">Reels · Social · 1,5 года</div>
+          <h2 class="title" style="font-size:clamp(1.5rem,3vw,2.5rem)">Знаем продукт<br>бренда</h2>
+          <p class="lead" style="margin-top:1.8vh">Почти полтора года 8BIT-MEDIA ведёт reels-продакшн для соцсетей BYD и&nbsp;DENZA в&nbsp;Узбекистане&nbsp;— регулярные съёмки, монтаж и&nbsp;публикация контента.</p>
+          <p class="lead muted" style="margin-top:1.4vh">Мы знаем автомобили бренда на&nbsp;практике: ракурсы, свет, динамика кадра и&nbsp;высокие требования к&nbsp;качеству. Этот опыт&nbsp;— основа, на&nbsp;которой выстроено фото- и&nbsp;видеопроизводство для текущего проекта.</p>
+        </div>
+        <div class="byd-videos">
+{vids}        </div>
+      </div>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+"""
+
+
 def build_team_slides_html(intro=True):
     parts = ["<!-- TEAM_START -->"]
     if intro:
@@ -181,5 +225,6 @@ def build_team_slides_html(intro=True):
     labels = ["Фото · 01", "Фото · 02", "Фото · 03"]
     for imgs, label in zip(PORTFOLIO, labels):
         parts.append(team_portfolio_slide(imgs, label))
+    parts.append(byd_experience_slide())
     parts.append("<!-- TEAM_END -->")
     return "\n".join(parts) + "\n"
