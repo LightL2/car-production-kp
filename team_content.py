@@ -61,19 +61,8 @@ PORTFOLIO = [
     ("portfolio-04.jpg", "portfolio-05.jpg"),
 ]
 
-# Чередование: портфолио Тео (экстерьер) ↔ примеры Алматы
-EXTERIOR_GALLERY = [
-    ("theo", ("portfolio-01.jpg", "portfolio-02.jpg"), "01"),
-    ("almaty", ("VM_13084.jpg", "VM_12795.jpg"), "01"),
-    ("theo", ("portfolio-03.jpg",), "02"),
-    ("almaty", ("VM_12450.jpg", "VM_11629.jpg"), "02"),
-    ("theo", ("portfolio-04.jpg", "portfolio-05.jpg"), "03"),
-]
-
-INTERIOR_GALLERY = [
-    ("almaty", ("VM_13259.jpg", "VM_13310.jpg"), "01"),
-    ("almaty", ("VM_13327.jpg",), "02"),
-]
+# Экстерьер: сначала Тео, затем примеры Алматы · Интерьер: примеры Алматы
+THEO_EXTERIOR = PORTFOLIO
 
 BYD_REELS_TOP = [
     ("denza-35.mp4", "DENZA"),
@@ -109,7 +98,9 @@ TEAM_CSS = """
 .pf-grid{display:grid;gap:1.2vw;justify-content:center;justify-items:center;align-items:center;width:max-content;max-width:100%;margin:0 auto}
 .pf-grid.pf-2{grid-template-columns:repeat(2,max-content)}
 .pf-grid.pf-1{grid-template-columns:max-content;max-width:920px}
-.portfolio-slide .body,.sample-slide .body{display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
+.slide.portfolio-slide > .body,.slide.sample-slide > .body{flex:1 1 0;min-height:0;width:100%;padding:0;overflow:visible}
+.slide.portfolio-slide .pf-grid,.slide.sample-slide .pf-grid{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4}
+.gallery-section .body{justify-content:center;align-items:center}
 .pf-cell{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;max-height:58vh;width:max-content;max-width:min(44vw,880px)}
 .pf-cell img{display:block;width:auto;height:auto;max-width:min(44vw,880px);max-height:58vh;object-fit:contain;object-position:center}
 .byd-slide .body{display:flex;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
@@ -122,7 +113,7 @@ TEAM_CSS = """
 .byd-vid-port video{max-height:34vh}
 .byd-vid-land video{max-height:19vh}
 .byd-vid-cap{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);text-align:center;padding:.75vh .6vw;border-top:1px solid var(--line);width:100%;align-self:stretch}
-.sample-head{margin-bottom:1.4vh;text-align:center;width:100%;flex-shrink:0}
+.sample-head{position:absolute;top:7.5vh;left:0;right:0;text-align:center;z-index:4;pointer-events:none}
 .sample-loc{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 """
 
@@ -215,6 +206,17 @@ def team_reel_slide(member):
 """
 
 
+def gallery_section_slide(title):
+    return f"""  <section class="slide gallery-section mesh center-v">
+    <div class="topbar"><span class="tag">ПОРТФОЛИО</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <h2 class="title">{esc(title)}</h2>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+"""
+
+
 def gallery_slide(source, images, page, kind):
     if source == "theo":
         tag = f"ПОРТФОЛИО · ТЕО · {kind.upper()} · {page}"
@@ -232,10 +234,11 @@ def gallery_slide(source, images, page, kind):
         )
         loc = f'      <div class="sample-head"><div class="sample-loc">{ALMATY_LOC}</div></div>\n'
     cols = "pf-1" if len(images) == 1 else "pf-2"
-    return f"""  <section class="slide portfolio-slide sample-slide mesh compact">
+    grid = f'      <div class="pf-grid {cols}">{cells}</div>'
+    return f"""  <section class="slide portfolio-slide sample-slide mesh center-v">
     <div class="topbar"><span class="tag">{tag}</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
-{loc}      <div class="pf-grid {cols}">{cells}</div>
+{loc}{grid}
     </div>
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
@@ -244,10 +247,14 @@ def gallery_slide(source, images, page, kind):
 
 def build_photo_gallery():
     parts = []
-    for source, images, page in EXTERIOR_GALLERY:
-        parts.append(gallery_slide(source, images, page, "ext"))
-    for source, images, page in INTERIOR_GALLERY:
-        parts.append(gallery_slide(source, images, page, "int"))
+    parts.append(gallery_section_slide("Экстерьер"))
+    for i, images in enumerate(THEO_EXTERIOR, 1):
+        parts.append(gallery_slide("theo", images, f"{i:02d}", "ext"))
+    for i, images in enumerate(ALMATY_EXT, 1):
+        parts.append(gallery_slide("almaty", images, f"{i:02d}", "ext"))
+    parts.append(gallery_section_slide("Интерьер"))
+    for i, images in enumerate(ALMATY_INT, 1):
+        parts.append(gallery_slide("almaty", images, f"{i:02d}", "int"))
     return parts
 
 

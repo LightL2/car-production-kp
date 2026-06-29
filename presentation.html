@@ -368,7 +368,9 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
 .pf-grid{display:grid;gap:1.2vw;justify-content:center;justify-items:center;align-items:center;width:max-content;max-width:100%;margin:0 auto}
 .pf-grid.pf-2{grid-template-columns:repeat(2,max-content)}
 .pf-grid.pf-1{grid-template-columns:max-content;max-width:920px}
-.portfolio-slide .body,.sample-slide .body{display:flex;flex-direction:column;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
+.slide.portfolio-slide > .body,.slide.sample-slide > .body{flex:1 1 0;min-height:0;width:100%;padding:0;overflow:visible}
+.slide.portfolio-slide .pf-grid,.slide.sample-slide .pf-grid{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4}
+.gallery-section .body{justify-content:center;align-items:center}
 .pf-cell{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;max-height:58vh;width:max-content;max-width:min(44vw,880px)}
 .pf-cell img{display:block;width:auto;height:auto;max-width:min(44vw,880px);max-height:58vh;object-fit:contain;object-position:center}
 .byd-slide .body{display:flex;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
@@ -381,7 +383,7 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
 .byd-vid-port video{max-height:34vh}
 .byd-vid-land video{max-height:19vh}
 .byd-vid-cap{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);text-align:center;padding:.75vh .6vw;border-top:1px solid var(--line);width:100%;align-self:stretch}
-.sample-head{margin-bottom:1.4vh;text-align:center;width:100%;flex-shrink:0}
+.sample-head{position:absolute;top:7.5vh;left:0;right:0;text-align:center;z-index:4;pointer-events:none}
 .sample-loc{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 
 /* end slide */
@@ -818,7 +820,15 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 
-  <section class="slide portfolio-slide sample-slide mesh compact">
+  <section class="slide gallery-section mesh center-v">
+    <div class="topbar"><span class="tag">ПОРТФОЛИО</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <h2 class="title">Экстерьер</h2>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+
+  <section class="slide portfolio-slide sample-slide mesh center-v">
     <div class="topbar"><span class="tag">ПОРТФОЛИО · ТЕО · EXT · 01</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
       <div class="pf-grid pf-2"><div class="pf-cell"><img src="assets/team/portfolio-01.jpg" alt=""></div><div class="pf-cell"><img src="assets/team/portfolio-02.jpg" alt=""></div></div>
@@ -826,7 +836,23 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 
-  <section class="slide portfolio-slide sample-slide mesh compact">
+  <section class="slide portfolio-slide sample-slide mesh center-v">
+    <div class="topbar"><span class="tag">ПОРТФОЛИО · ТЕО · EXT · 02</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <div class="pf-grid pf-1"><div class="pf-cell"><img src="assets/team/portfolio-03.jpg" alt=""></div></div>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+
+  <section class="slide portfolio-slide sample-slide mesh center-v">
+    <div class="topbar"><span class="tag">ПОРТФОЛИО · ТЕО · EXT · 03</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <div class="pf-grid pf-2"><div class="pf-cell"><img src="assets/team/portfolio-04.jpg" alt=""></div><div class="pf-cell"><img src="assets/team/portfolio-05.jpg" alt=""></div></div>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+
+  <section class="slide portfolio-slide sample-slide mesh center-v">
     <div class="topbar"><span class="tag">ПРИМЕРЫ · EXT · 01</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
       <div class="sample-head"><div class="sample-loc">Съёмка · г. Алматы, Казахстан</div></div>
@@ -835,15 +861,7 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 
-  <section class="slide portfolio-slide sample-slide mesh compact">
-    <div class="topbar"><span class="tag">ПОРТФОЛИО · ТЕО · EXT · 02</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
-    <div class="body">
-      <div class="pf-grid pf-1"><div class="pf-cell"><img src="assets/team/portfolio-03.jpg" alt=""></div></div>
-    </div>
-    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
-  </section>
-
-  <section class="slide portfolio-slide sample-slide mesh compact">
+  <section class="slide portfolio-slide sample-slide mesh center-v">
     <div class="topbar"><span class="tag">ПРИМЕРЫ · EXT · 02</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
       <div class="sample-head"><div class="sample-loc">Съёмка · г. Алматы, Казахстан</div></div>
@@ -852,15 +870,15 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 
-  <section class="slide portfolio-slide sample-slide mesh compact">
-    <div class="topbar"><span class="tag">ПОРТФОЛИО · ТЕО · EXT · 03</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+  <section class="slide gallery-section mesh center-v">
+    <div class="topbar"><span class="tag">ПОРТФОЛИО</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
-      <div class="pf-grid pf-2"><div class="pf-cell"><img src="assets/team/portfolio-04.jpg" alt=""></div><div class="pf-cell"><img src="assets/team/portfolio-05.jpg" alt=""></div></div>
+      <h2 class="title">Интерьер</h2>
     </div>
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 
-  <section class="slide portfolio-slide sample-slide mesh compact">
+  <section class="slide portfolio-slide sample-slide mesh center-v">
     <div class="topbar"><span class="tag">ПРИМЕРЫ · INT · 01</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
       <div class="sample-head"><div class="sample-loc">Съёмка · г. Алматы, Казахстан</div></div>
@@ -869,7 +887,7 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 
-  <section class="slide portfolio-slide sample-slide mesh compact">
+  <section class="slide portfolio-slide sample-slide mesh center-v">
     <div class="topbar"><span class="tag">ПРИМЕРЫ · INT · 02</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
       <div class="sample-head"><div class="sample-loc">Съёмка · г. Алматы, Казахстан</div></div>
