@@ -95,10 +95,10 @@ TEAM_CSS = """
 .video-wrap{width:100%;max-width:960px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(0,122,255,.15)}
 .video-wrap video{display:block;width:100%;max-height:62vh;background:#000}
 .video-cap{margin-top:1.2vh;font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;color:var(--grey);text-transform:uppercase;text-align:center}
-.pf-grid{display:grid;gap:1.1vw;justify-content:center;justify-items:center;align-items:center;width:max-content;max-width:96vw;margin:0 auto}
+.pf-grid{display:grid;gap:1.2vw;justify-content:center;justify-items:center;align-items:center;width:max-content;max-width:89vw;margin:0 auto}
 .pf-grid.pf-2{grid-template-columns:repeat(2,max-content);gap:1.2vw}
-.pf-grid.pf-3{grid-template-columns:repeat(3,max-content);gap:1.1vw}
-.pf-grid.pf-1{grid-template-columns:max-content;max-width:96vw}
+.pf-grid.pf-3{grid-template-columns:repeat(3,max-content);gap:1vw}
+.pf-grid.pf-1{grid-template-columns:max-content;max-width:89vw}
 .slide.portfolio-slide > .body,.slide.sample-slide > .body{flex:1 1 0;min-height:0;width:100%;padding:0;overflow:visible}
 .slide.portfolio-slide .pf-grid,.slide.sample-slide .pf-grid{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4}
 .gallery-section .body{justify-content:center;align-items:center}
@@ -107,17 +107,14 @@ TEAM_CSS = """
   border-radius:18px;
   overflow:hidden;
   background:linear-gradient(160deg,rgba(22,22,24,.95),rgba(8,8,10,.98));
-  display:flex;align-items:center;justify-content:center;
+  display:inline-block;line-height:0;vertical-align:middle;
   box-shadow:0 28px 90px rgba(0,0,0,.62),0 0 0 1px rgba(0,122,255,.14),inset 0 1px 0 rgba(255,255,255,.07);
-  transition:box-shadow .35s ease,transform .35s ease;
+  transition:box-shadow .35s ease;
 }
 .pf-cell:hover{box-shadow:0 32px 100px rgba(0,0,0,.7),0 0 28px rgba(0,122,255,.18),0 0 0 1px rgba(0,122,255,.22),inset 0 1px 0 rgba(255,255,255,.09)}
-.pf-grid.pf-1 .pf-cell{max-width:min(90vw,1320px);max-height:74vh;width:max-content}
-.pf-grid.pf-1 .pf-cell img{max-width:min(90vw,1320px);max-height:74vh}
-.pf-grid.pf-2 .pf-cell{max-width:min(56vw,1080px);max-height:76vh;width:max-content}
-.pf-grid.pf-2 .pf-cell img{max-width:min(56vw,1080px);max-height:76vh}
-.pf-grid.pf-3 .pf-cell{max-width:min(32vw,680px);max-height:64vh;width:max-content}
-.pf-grid.pf-3 .pf-cell img{max-width:min(32vw,680px);max-height:64vh}
+.pf-grid.pf-1 .pf-cell img{max-width:min(88vw,1280px);max-height:72vh}
+.pf-grid.pf-2 .pf-cell img{max-width:min(calc((89vw - 1.2vw)/2),860px);max-height:72vh}
+.pf-grid.pf-3 .pf-cell img{max-width:min(calc((89vw - 2vw)/3),620px);max-height:64vh}
 .pf-cell img{display:block;width:auto;height:auto;object-fit:contain;object-position:center}
 .byd-slide .body{display:flex;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
 .byd-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:2.2vw;align-items:center;width:100%}
