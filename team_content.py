@@ -103,13 +103,14 @@ def copy_team_assets():
 
 def team_intro_slide():
     return """  <!-- TEAM INTRO -->
-  <section class="slide mesh center-v">
+  <section class="slide mesh center-v compact">
     <div class="orb orb-2"></div>
     <div class="topbar"><span class="tag">КОМАНДА</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
-      <div class="kicker">Production team</div>
+      <div class="kicker">8BIT Production Network</div>
       <h2 class="title">Команда<br>проекта</h2>
-      <p class="lead" style="margin-top:2vh">Режиссёр, оператор и фотограф с международным опытом. Showreel и портфолио — без брендинга субподрядчиков, только 8BIT-MEDIA.</p>
+      <p class="lead" style="margin-top:2vh">Для этого проекта 8BIT-MEDIA выводит на ключевые роли специалистов из нашей международной production-сети&nbsp;— режиссёра, оператора и&nbsp;фотографа, с&nbsp;которыми агентство работает на&nbsp;постоянной основе.</p>
+      <p class="lead muted" style="margin-top:1.8vh;max-width:52ch">Это наши люди: постоянные партнёры 8BIT, а&nbsp;не&nbsp;разовый субподряд. За&nbsp;каждым&nbsp;— опыт съёмок для крупнейших мировых брендов. На&nbsp;проекте они действуют как единая команда агентства&nbsp;— под управлением, стандартами и&nbsp;ответственностью 8BIT-MEDIA.</p>
     </div>
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
