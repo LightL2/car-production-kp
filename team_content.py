@@ -9,7 +9,6 @@ ASSETS = ROOT / "assets" / "team"
 
 COPY_MAP = {
     "image3.png": "egor-portrait.png",
-    "image4.png": "egor-brands.png",
     "image5.jpeg": "egor-reel-poster.jpg",
     "VAHN31fgG5o.mp4": "egor-reel.mp4",
     "image6.png": "pavel-portrait.png",
@@ -62,11 +61,12 @@ PORTFOLIO = [
     ("portfolio-04.jpg", "portfolio-05.jpg"),
 ]
 
-BYD_REELS = [
-    ("byd-cinematic.mp4", "BYD · cinematic"),
-    ("byd-4x3-final.mp4", "BYD · 4×3"),
+BYD_REELS_TOP = [
     ("denza-35.mp4", "DENZA"),
+    ("byd-cinematic.mp4", "BYD · cinematic"),
 ]
+BYD_REEL_LAND = ("byd-4x3-final.mp4", "BYD · 4×3")
+BYD_ASSETS = "assets/byd"
 
 TEAM_CSS = """
 /* team & portfolio slides */
@@ -74,7 +74,7 @@ TEAM_CSS = """
 .team-role{font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--accent);margin-bottom:1.6vh}
 .team-visual{display:flex;flex-direction:column;gap:1.5vh;align-items:center}
 .team-portrait{width:100%;max-height:42vh;object-fit:contain;object-position:center bottom}
-.team-brands{width:100%;max-height:16vh;object-fit:contain;opacity:.95}
+.team-brands{width:100%;max-height:20vh;object-fit:contain;opacity:.95}
 .video-slide .body{justify-content:center;align-items:center}
 .video-wrap{width:100%;max-width:960px;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:#000;box-shadow:0 20px 60px rgba(0,122,255,.15)}
 .video-wrap video{display:block;width:100%;max-height:62vh;background:#000}
@@ -85,13 +85,16 @@ TEAM_CSS = """
 .portfolio-slide .body{justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
 .pf-cell{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;display:flex;align-items:center;justify-content:center;max-height:62vh}
 .pf-cell img{display:block;width:100%;height:auto;max-height:62vh;object-fit:contain;object-position:center}
-.byd-slide .body{justify-content:center;padding-top:0;padding-bottom:0}
-.byd-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:2.5vw;align-items:center;width:100%}
-.byd-copy .lead{max-width:46ch}
-.byd-videos{display:grid;grid-template-columns:repeat(3,1fr);gap:.9vw;width:100%}
-.byd-vid{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;display:flex;flex-direction:column}
-.byd-vid video{display:block;width:100%;height:auto;max-height:44vh;background:#000;object-fit:contain}
-.byd-vid-cap{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);text-align:center;padding:.8vh .4vw;border-top:1px solid var(--line)}
+.byd-slide .body{display:flex;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
+.byd-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:2.2vw;align-items:center;width:100%}
+.byd-copy .lead{max-width:44ch}
+.byd-videos{display:flex;flex-direction:column;align-items:center;gap:1.1vh;justify-content:center}
+.byd-videos-row{display:flex;gap:1vw;align-items:flex-end;justify-content:center;flex-wrap:nowrap}
+.byd-vid{border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#111;display:inline-flex;flex-direction:column;align-items:center;max-width:100%}
+.byd-vid video{display:block;width:auto;height:auto;max-width:100%;background:#000}
+.byd-vid-port video{max-height:34vh}
+.byd-vid-land video{max-height:19vh}
+.byd-vid-cap{font-family:var(--mono);font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;color:var(--grey);text-align:center;padding:.75vh .6vw;border-top:1px solid var(--line);width:100%;align-self:stretch}
 """
 
 
@@ -183,30 +186,35 @@ def team_portfolio_slide(images, label):
 """
 
 
-def byd_experience_slide():
-    vids = "".join(
-        f"""        <div class="byd-vid">
+def byd_vid_cell(file, label, kind="port"):
+    cls = "byd-vid-port" if kind == "port" else "byd-vid-land"
+    return f"""        <div class="byd-vid {cls}">
           <video controls playsinline preload="metadata">
-            <source src="assets/{esc(file)}" type="video/mp4">
+            <source src="{BYD_ASSETS}/{esc(file)}" type="video/mp4">
           </video>
           <div class="byd-vid-cap">{esc(label)}</div>
-        </div>\n"""
-        for file, label in BYD_REELS
-    )
+        </div>"""
+
+
+def byd_experience_slide():
+    top = "".join(byd_vid_cell(file, label, "port") for file, label in BYD_REELS_TOP)
+    bottom = byd_vid_cell(BYD_REEL_LAND[0], BYD_REEL_LAND[1], "land")
     return f"""  <!-- BYD EXPERIENCE -->
-  <section class="slide byd-slide mesh compact">
+  <section class="slide byd-slide mesh center-v compact">
     <div class="orb orb-2"></div>
     <div class="topbar"><span class="tag">BYD &amp; DENZA · ОПЫТ</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
       <div class="byd-grid">
         <div class="byd-copy">
           <div class="kicker">Reels · Social · 1,5 года</div>
-          <h2 class="title" style="font-size:clamp(1.5rem,3vw,2.5rem)">Знаем продукт<br>бренда</h2>
-          <p class="lead" style="margin-top:1.8vh">Почти полтора года 8BIT-MEDIA ведёт reels-продакшн для соцсетей BYD и&nbsp;DENZA в&nbsp;Узбекистане&nbsp;— регулярные съёмки, монтаж и&nbsp;публикация контента.</p>
-          <p class="lead muted" style="margin-top:1.4vh">Мы знаем автомобили бренда на&nbsp;практике: ракурсы, свет, динамика кадра и&nbsp;высокие требования к&nbsp;качеству. Этот опыт&nbsp;— основа, на&nbsp;которой выстроено фото- и&nbsp;видеопроизводство для текущего проекта.</p>
+          <h2 class="title" style="font-size:clamp(1.35rem,2.6vw,2.2rem)">Знаем продукт<br>бренда</h2>
+          <p class="lead" style="margin-top:1.6vh">Почти полтора года 8BIT-MEDIA ведёт reels-продакшн для соцсетей BYD и&nbsp;DENZA в&nbsp;Узбекистане&nbsp;— регулярные съёмки, монтаж и&nbsp;публикация контента.</p>
+          <p class="lead muted" style="margin-top:1.2vh">Мы знаем автомобили бренда на&nbsp;практике: ракурсы, свет, динамика кадра и&nbsp;высокие требования к&nbsp;качеству. Этот опыт&nbsp;— основа, на&nbsp;которой выстроено фото- и&nbsp;видеопроизводство для текущего проекта.</p>
         </div>
         <div class="byd-videos">
-{vids}        </div>
+          <div class="byd-videos-row">
+{top}          </div>
+{bottom}        </div>
       </div>
     </div>
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
