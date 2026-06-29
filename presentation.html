@@ -386,78 +386,16 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
 #dots button.on{background:var(--accent);border-color:var(--accent);transform:scale(1.4);box-shadow:0 0 10px var(--accent-glow);}
 #hint{position:fixed;left:50%;bottom:1vh;transform:translateX(-50%);font-family:var(--mono);font-size:.62rem;letter-spacing:.1em;color:rgba(255,255,255,.25);text-transform:uppercase;z-index:40;}
 
-body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{display:none!important;}
-#gate{
-  position:fixed;inset:0;z-index:10000;display:flex;align-items:center;justify-content:center;
-  background:var(--bg);padding:5vw;
-}
-#gate::before{
-  content:'';position:absolute;inset:0;pointer-events:none;opacity:.22;
-  background-image:linear-gradient(rgba(0,122,255,.05) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(0,122,255,.05) 1px,transparent 1px);
-  background-size:56px 56px;
-}
-#gate.hidden{display:none;}
-.gate-card{
-  position:relative;width:min(420px,100%);border:1px solid var(--line);border-radius:24px;
-  padding:4vh 4vw;background:rgba(255,255,255,.03);backdrop-filter:blur(16px);
-  box-shadow:0 24px 80px rgba(0,122,255,.12);
-}
-.gate-logo{display:block;height:44px;width:auto;margin:0 auto 3vh;opacity:.95;}
-.gate-kicker{
-  font-family:var(--mono);font-size:.68rem;letter-spacing:.22em;text-transform:uppercase;
-  color:var(--accent);text-align:center;margin-bottom:1.2vh;
-}
-.gate-title{
-  font-family:var(--display);font-weight:800;font-size:clamp(1.2rem,2.4vw,1.6rem);
-  text-transform:uppercase;text-align:center;line-height:1.05;margin-bottom:3vh;
-}
-.gate-field{display:flex;flex-direction:column;gap:1vh;}
-.gate-field label{
-  font-family:var(--mono);font-size:.62rem;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);
-}
-.gate-field input{
-  width:100%;border:1px solid var(--line);border-radius:12px;background:rgba(0,0,0,.45);
-  color:var(--white);font-family:var(--mono);font-size:.95rem;padding:1.4vh 1vw;outline:none;
-  transition:border-color .2s,box-shadow .2s;
-}
-.gate-field input:focus{border-color:rgba(0,122,255,.55);box-shadow:0 0 0 3px var(--accent-soft);}
-.gate-btn{
-  margin-top:2.2vh;width:100%;border:none;border-radius:12px;padding:1.5vh 1vw;cursor:pointer;
-  font-family:var(--mono);font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;font-weight:600;
-  color:#fff;background:linear-gradient(135deg,var(--accent-2),var(--accent));
-  box-shadow:0 10px 30px rgba(0,122,255,.25);transition:transform .15s,box-shadow .15s;
-}
-.gate-btn:hover{transform:translateY(-1px);box-shadow:0 14px 36px rgba(0,122,255,.32);}
-.gate-err{
-  min-height:1.2em;margin-top:1.4vh;font-family:var(--mono);font-size:.68rem;
-  letter-spacing:.06em;color:#ff6b6b;text-align:center;
-}
-
 @media print{
   @page{size:1280px 720px;margin:0;}
   html,body{overflow:visible;height:auto;}
-  #gate{display:none!important;}
   #progress,#dots,#hint{display:none!important;}
   .slide{display:flex!important;opacity:1!important;position:relative;inset:auto;width:1280px;height:720px;page-break-after:always;animation:none;overflow:hidden;}
   .slide > .footer{position:relative;margin-top:auto;}
 }
 </style>
 </head>
-<body class="locked">
-<div id="gate" role="dialog" aria-labelledby="gate-title" aria-modal="true">
-  <form class="gate-card" id="gate-form" autocomplete="off">
-    <img class="gate-logo" src="assets/logo-8bit-white.png" alt="8BIT-MEDIA">
-    <div class="gate-kicker">Restricted access</div>
-    <h1 class="gate-title" id="gate-title">Введите ключ<br>доступа</h1>
-    <div class="gate-field">
-      <label for="gate-pass">Ключ доступа</label>
-      <input id="gate-pass" type="password" inputmode="text" spellcheck="false" autofocus required>
-    </div>
-    <button class="gate-btn" type="submit">Открыть презентацию</button>
-    <div class="gate-err" id="gate-err" aria-live="polite"></div>
-  </form>
-</div>
+<body>
 <div id="progress"></div>
 <div id="deck">
 
@@ -1179,42 +1117,6 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
 
 <script>
 (function(){
-  const AUTH_KEY='cp-kp-auth';
-  const PASS_HASH='0d9a3d5c2282fe030752c69d91c6a3bae2d4ecdb0896d6e8302aec586ae01de1';
-  const gate=document.getElementById('gate');
-  const form=document.getElementById('gate-form');
-  const input=document.getElementById('gate-pass');
-  const err=document.getElementById('gate-err');
-
-  function unlock(){
-    document.body.classList.remove('locked');
-    gate.classList.add('hidden');
-    sessionStorage.setItem(AUTH_KEY,'1');
-    window.dispatchEvent(new Event('kp-unlock'));
-  }
-
-  async function hash(v){
-    const buf=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(v));
-    return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('');
-  }
-
-  if(sessionStorage.getItem(AUTH_KEY)==='1') unlock();
-  else{
-    form.addEventListener('submit',async e=>{
-      e.preventDefault();
-      err.textContent='';
-      if(await hash(input.value)===PASS_HASH) unlock();
-      else{
-        err.textContent='Неверный ключ доступа';
-        input.select();
-      }
-    });
-  }
-})();
-</script>
-<script>
-(function(){
-  function start(){
   const slides=[...document.querySelectorAll('.slide')];
   const total=slides.length;
   const dotsWrap=document.getElementById('dots');
@@ -1274,9 +1176,6 @@ body.locked #progress,body.locked #deck,body.locked #dots,body.locked #hint{disp
     else document.exitFullscreen?.();
   }
   go(0);
-  }
-  if(document.body.classList.contains('locked')) window.addEventListener('kp-unlock',start,{once:true});
-  else start();
 })();
 </script>
 </body>
