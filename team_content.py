@@ -75,6 +75,8 @@ ALMATY_EXT = [
     ("3.jpg", "4.jpg"),
     ("5.jpg", "6.jpg"),
 ]
+ALMATY_EXT_BTS = "VM_12450.jpg"
+ALMATY_EXT_BTS_CAP = "работа команды в студии"
 ALMATY_INT = [
     ("VM_13259.jpg", "VM_13310.jpg", "VM_12198.jpg"),
     ("VM_13327.jpg", "VM_13202.jpg"),
@@ -116,6 +118,9 @@ TEAM_CSS = """
 .pf-grid.pf-2 .pf-cell img{max-width:min(calc((89vw - 1.2vw)/2),860px);max-height:72vh}
 .pf-grid.pf-3 .pf-cell img{max-width:min(calc((89vw - 2vw)/3),620px);max-height:64vh}
 .pf-cell img{display:block;width:auto;height:auto;object-fit:contain;object-position:center}
+.pf-feature{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:1.4vh;max-width:89vw}
+.pf-feature .pf-grid{position:static;top:auto;left:auto;transform:none}
+.pf-cap{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;color:var(--grey);text-align:center;line-height:1.45;max-width:52ch}
 .byd-slide .body{display:flex;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
 .byd-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:2.2vw;align-items:center;width:100%}
 .byd-copy .lead{max-width:44ch}
@@ -158,12 +163,20 @@ def copy_almaty_samples():
         dst_dir = ALMATY_ASSETS / kind
         dst_dir.mkdir(parents=True, exist_ok=True)
         wanted = {img for group in groups for img in group}
+        if kind == "ext":
+            wanted.add(ALMATY_EXT_BTS)
         for group in groups:
             for img in group:
                 src = src_dir / img
                 if not src.exists():
                     raise FileNotFoundError(f"Missing {src}")
                 shutil.copy2(src, dst_dir / img)
+        if kind == "ext":
+            bts_src = EXT_SRC / ALMATY_EXT_BTS
+            if bts_src.exists():
+                shutil.copy2(bts_src, dst_dir / ALMATY_EXT_BTS)
+            else:
+                raise FileNotFoundError(f"Missing {bts_src}")
         for existing in dst_dir.iterdir():
             if existing.is_file() and existing.name not in wanted:
                 existing.unlink()
@@ -262,6 +275,23 @@ def gallery_slide(source, images, page, kind):
 """
 
 
+def gallery_feature_slide(image, caption, kind="ext"):
+    folder = "ext" if kind == "ext" else "int"
+    tag = f"ПРИМЕРЫ · {kind.upper()} · BTS"
+    return f"""  <section class="slide portfolio-slide sample-slide mesh center-v">
+    <div class="topbar"><span class="tag">{tag}</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <div class="sample-head"><div class="sample-loc">{ALMATY_LOC}</div></div>
+      <div class="pf-feature">
+        <div class="pf-grid pf-1"><div class="pf-cell"><img src="assets/almaty/{folder}/{esc(image)}" alt=""></div></div>
+        <div class="pf-cap">{esc(caption)}</div>
+      </div>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+"""
+
+
 def build_photo_gallery():
     parts = []
     parts.append(gallery_section_slide("Экстерьер"))
@@ -269,6 +299,7 @@ def build_photo_gallery():
         parts.append(gallery_slide("theo", images, f"{i:02d}", "ext"))
     for i, images in enumerate(ALMATY_EXT, 1):
         parts.append(gallery_slide("almaty", images, f"{i:02d}", "ext"))
+    parts.append(gallery_feature_slide(ALMATY_EXT_BTS, ALMATY_EXT_BTS_CAP))
     parts.append(gallery_section_slide("Интерьер"))
     for i, images in enumerate(ALMATY_INT, 1):
         parts.append(gallery_slide("almaty", images, f"{i:02d}", "int"))

@@ -386,6 +386,9 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
 .pf-grid.pf-2 .pf-cell img{max-width:min(calc((89vw - 1.2vw)/2),860px);max-height:72vh}
 .pf-grid.pf-3 .pf-cell img{max-width:min(calc((89vw - 2vw)/3),620px);max-height:64vh}
 .pf-cell img{display:block;width:auto;height:auto;object-fit:contain;object-position:center}
+.pf-feature{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:4;display:flex;flex-direction:column;align-items:center;gap:1.4vh;max-width:89vw}
+.pf-feature .pf-grid{position:static;top:auto;left:auto;transform:none}
+.pf-cap{font-family:var(--mono);font-size:.75rem;letter-spacing:.06em;color:var(--grey);text-align:center;line-height:1.45;max-width:52ch}
 .byd-slide .body{display:flex;justify-content:center;align-items:center;padding-top:0;padding-bottom:0}
 .byd-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:2.2vw;align-items:center;width:100%}
 .byd-copy .lead{max-width:44ch}
@@ -880,6 +883,18 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
     <div class="body">
       <div class="sample-head"><div class="sample-loc">Съёмка · г. Алматы, Казахстан</div></div>
       <div class="pf-grid pf-2"><div class="pf-cell"><img src="assets/almaty/ext/5.jpg" alt=""></div><div class="pf-cell"><img src="assets/almaty/ext/6.jpg" alt=""></div></div>
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+
+  <section class="slide portfolio-slide sample-slide mesh center-v">
+    <div class="topbar"><span class="tag">ПРИМЕРЫ · EXT · BTS</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+      <div class="sample-head"><div class="sample-loc">Съёмка · г. Алматы, Казахстан</div></div>
+      <div class="pf-feature">
+        <div class="pf-grid pf-1"><div class="pf-cell"><img src="assets/almaty/ext/VM_12450.jpg" alt=""></div></div>
+        <div class="pf-cap">работа команды в студии</div>
+      </div>
     </div>
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
