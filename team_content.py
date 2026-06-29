@@ -57,7 +57,6 @@ TEAM = [
 
 PORTFOLIO = [
     ("portfolio-01.jpg", "portfolio-02.jpg"),
-    ("portfolio-03.jpg",),
     ("portfolio-04.jpg", "portfolio-05.jpg"),
 ]
 
