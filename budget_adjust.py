@@ -19,6 +19,16 @@ VIDEO_OTHER_FACTOR = 0.85
 PHOTO_SCOPE_FACTOR = 0.96  # небольшое снижение фото-блока
 VIDEO_SHIFTS_AFTER = 1
 
+# Shared pavilion studio (photo + video interior/exterior); rebalanced inside blocks — total unchanged.
+STUDIO_PAVILION_USD = 10_000
+STUDIO_PAVILION_DAYS = 4
+STUDIO_BLOCK_SPLIT = {
+    "photo": 0.35,
+    "video_tvc": 0.35,
+    "video_overview": 0.30,
+}
+STUDIO_SUBGROUP = "Студия · павильон"
+
 PHOTO_MERGE = {
     "1AD": "Art department · команда",
     "Постановщики": "Art department · команда",
@@ -367,6 +377,94 @@ def apply_scope_revision(raw: dict) -> dict:
     return data
 
 
+def _trim_lines_proportional(lines: list[dict], cut: float) -> list[dict]:
+    """Reduce line amounts by `cut` USD, spread proportionally."""
+    cut = float(cut)
+    if cut <= 0:
+        return [copy.deepcopy(l) for l in lines]
+
+    out = [copy.deepcopy(l) for l in lines]
+    total = sum(float(l["amount"]) for l in out)
+    if cut >= total:
+        raise ValueError(f"Cannot trim ${cut:,.0f} from block total ${total:,.0f}")
+
+    for line in out:
+        share = float(line["amount"]) / total
+        line["amount"] = round_clean(float(line["amount"]) - cut * share)
+        qty = line.get("qty")
+        if isinstance(qty, (int, float)) and qty:
+            line["rate"] = round_clean(line["amount"] / float(qty))
+            line["amount"] = line["rate"] * float(qty)
+
+    target = round_clean(total - cut)
+    drift = round_clean(target - sum(float(l["amount"]) for l in out))
+    if drift:
+        anchor = max(out, key=lambda x: float(x["amount"]))
+        anchor["amount"] = round_clean(float(anchor["amount"]) + drift)
+        qty = anchor.get("qty")
+        if isinstance(qty, (int, float)) and qty:
+            anchor["rate"] = round_clean(anchor["amount"] / float(qty))
+            anchor["amount"] = anchor["rate"] * float(qty)
+    return out
+
+
+def add_studio_to_client_block(block: dict, studio_usd: float) -> dict:
+    """Insert visible pavilion studio line; trim other rows so block total stays the same."""
+    studio_usd = round_clean(float(studio_usd))
+    if studio_usd <= 0:
+        return block
+
+    target_overall = int(block["overall_usd"])
+    lines = _trim_lines_proportional(block["lines"], studio_usd)
+    prod_section = next(
+        (l["section"] for l in block["lines"] if _is_production_section(l.get("section") or "")),
+        "2. Production (съемочный процесс)",
+    )
+    days = float(STUDIO_PAVILION_DAYS)
+    rate = round_clean(studio_usd / days)
+    studio_usd = rate * days
+    studio_row = {
+        "section": prod_section,
+        "subgroup": "",
+        "name": STUDIO_SUBGROUP,
+        "qty": days,
+        "rate": rate,
+        "amount": studio_usd,
+    }
+
+    insert_at = len(lines)
+    for i, line in enumerate(lines):
+        sec = line.get("section") or ""
+        if _is_post_section(sec) or "проч" in sec.lower():
+            insert_at = i
+            break
+        if _is_production_section(sec):
+            insert_at = i + 1
+    lines.insert(insert_at, studio_row)
+
+    subtotal = round(target_overall / (1 + VAT_RATE))
+    current = round(sum(float(l["amount"]) for l in lines))
+    drift = subtotal - current
+    if drift:
+        anchor = next((l for l in reversed(lines) if l["name"] != STUDIO_SUBGROUP), lines[0])
+        anchor["amount"] = round_clean(float(anchor["amount"]) + drift)
+        qty = anchor.get("qty")
+        if isinstance(qty, (int, float)) and qty:
+            anchor["rate"] = round_clean(anchor["amount"] / float(qty))
+            anchor["amount"] = anchor["rate"] * float(qty)
+
+    subtotal = round(sum(float(l["amount"]) for l in lines))
+    vat = target_overall - subtotal
+    out = copy.deepcopy(block)
+    out["lines"] = lines
+    out["sections"] = rollup_sections(lines)
+    out["subtotal"] = subtotal
+    out["vat"] = vat
+    out["overall_usd"] = target_overall
+    out["overall_uzs"] = target_overall
+    return out
+
+
 def adjust_block(block: dict, extra_usd: float, merge_map: dict) -> dict:
     target_net = (
         float(block["subtotal"])
@@ -408,9 +506,18 @@ def prepare_client_budget(raw: dict) -> dict:
     tvc_extra = VIDEO_EXTRA_TOTAL * tvc_sub / split
     ov_extra = VIDEO_EXTRA_TOTAL * ov_sub / split
 
+    studio_shares = {k: STUDIO_PAVILION_USD * v for k, v in STUDIO_BLOCK_SPLIT.items()}
+    studio_shares["video_overview"] = round_clean(
+        studio_shares["video_overview"] + STUDIO_PAVILION_USD - sum(studio_shares.values())
+    )
+
     photo = adjust_block(raw["photo"], PHOTO_EXTRA, PHOTO_MERGE)
     video_tvc = adjust_block(raw["video_tvc"], tvc_extra, VIDEO_MERGE)
     video_overview = adjust_block(raw["video_overview"], ov_extra, VIDEO_MERGE)
+
+    photo = add_studio_to_client_block(photo, studio_shares["photo"])
+    video_tvc = add_studio_to_client_block(video_tvc, studio_shares["video_tvc"])
+    video_overview = add_studio_to_client_block(video_overview, studio_shares["video_overview"])
 
     photo_total = photo["overall_usd"]
     video_total = video_tvc["overall_usd"] + video_overview["overall_usd"]

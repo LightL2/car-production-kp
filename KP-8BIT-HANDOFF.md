@@ -88,6 +88,8 @@ VIDEO_POST_FACTOR = 0.4      # post: 1 ролик вместо 2–3 (÷2.5)
 VIDEO_PRODUCTION_FACTOR = 0.68
 VIDEO_PRE_FACTOR = 0.92
 VIDEO_OTHER_FACTOR = 0.85
+STUDIO_PAVILION_USD = 10_000 # павильон · 4 дня; строка в Production, сумма проекта не растёт
+STUDIO_BLOCK_SPLIT = {"photo": 0.35, "video_tvc": 0.35, "video_overview": 0.30}
 RATE = 12100                 # в parse_estimate.py — UZS/USD (ЦБ)
 ```
 
