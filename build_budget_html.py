@@ -292,7 +292,7 @@ def summary_slide(d):
             <div class="bt">{usd(d['video_total_usd'])}<span class="nolink" x-apple-data-detectors="false">{uzs(d['video_total_uzs'])} UZS · {d['video_tvc']['shifts']}+{d['video_overview']['shifts']} смены</span></div>
             <ul class="blist muted" style="gap:.7vh">
               <li style="font-size:.82rem">TVC {usd(d['video_tvc']['overall_usd'])} · Overview {usd(d['video_overview']['overall_usd'])}</li>
-              <li style="font-size:.82rem">8–12 роликов · 4K UHD</li>
+              <li style="font-size:.82rem">4 ролика · 4K UHD</li>
             </ul>
           </div>
         </div>

@@ -6,8 +6,18 @@ import copy
 from collections import defaultdict
 
 VAT_RATE = 0.12
-PHOTO_EXTRA = 25_000
-VIDEO_EXTRA_TOTAL = 40_000
+PHOTO_EXTRA = 0
+VIDEO_EXTRA_TOTAL = 0
+
+# Scope revision: video 2–3 → 1 per category (avg 2.5 → 1); photo trimmed slightly.
+VIDEO_PER_CATEGORY_BEFORE = 2.5
+VIDEO_PER_CATEGORY_AFTER = 1.0
+VIDEO_POST_FACTOR = VIDEO_PER_CATEGORY_AFTER / VIDEO_PER_CATEGORY_BEFORE  # 0.4 — post per deliverable
+VIDEO_PRE_FACTOR = 0.92
+VIDEO_PRODUCTION_FACTOR = 0.68  # production: ~1 смена вместо 2 + частичные фикс. расходы
+VIDEO_OTHER_FACTOR = 0.85
+PHOTO_SCOPE_FACTOR = 0.96  # небольшое снижение фото-блока
+VIDEO_SHIFTS_AFTER = 1
 
 PHOTO_MERGE = {
     "1AD": "Art department · команда",
@@ -300,6 +310,63 @@ def compress_for_slide(lines: list[dict]) -> list[dict]:
     return _fix_total(result, total)
 
 
+def _rescale_block_totals(block: dict, lines: list[dict]) -> dict:
+    out = copy.deepcopy(block)
+    out["lines"] = lines
+    new_sub = sum(float(l["amount"]) for l in lines)
+    old_sub = float(block["subtotal"] or 0) or new_sub
+    ratio = new_sub / old_sub if old_sub else 1.0
+    out["subtotal"] = round(new_sub)
+    out["markup"] = round(float(block.get("markup") or 0) * ratio)
+    out["tax"] = round(float(block.get("tax") or 0) * ratio)
+    return out
+
+
+def _scale_line(line: dict, factor: float) -> dict:
+    row = copy.deepcopy(line)
+    row["amount"] = round_clean(float(line["amount"]) * factor)
+    qty = row.get("qty")
+    if isinstance(qty, (int, float)) and qty:
+        row["rate"] = round_clean(row["amount"] / float(qty))
+        row["amount"] = row["rate"] * float(qty)
+    return row
+
+
+def scale_block_for_scope(block: dict, *, photo: bool = False) -> dict:
+    """Apply revised deliverable scope before client-facing markup merge."""
+    if photo:
+        scaled = [_scale_line(line, PHOTO_SCOPE_FACTOR) for line in block["lines"]]
+        return _rescale_block_totals(block, scaled)
+
+    shifts = int(block.get("shifts") or 2)
+    scaled = []
+    for line in block["lines"]:
+        sec = line["section"] or ""
+        if _is_pre_section(sec):
+            factor = VIDEO_PRE_FACTOR
+        elif _is_post_section(sec):
+            factor = VIDEO_POST_FACTOR
+        elif _is_production_section(sec):
+            factor = VIDEO_PRODUCTION_FACTOR
+        elif "проч" in sec.lower():
+            factor = VIDEO_OTHER_FACTOR
+        else:
+            factor = VIDEO_POST_FACTOR
+        scaled.append(_scale_line(line, factor))
+
+    out = _rescale_block_totals(block, scaled)
+    out["shifts"] = VIDEO_SHIFTS_AFTER
+    return out
+
+
+def apply_scope_revision(raw: dict) -> dict:
+    data = copy.deepcopy(raw)
+    data["photo"] = scale_block_for_scope(data["photo"], photo=True)
+    data["video_tvc"] = scale_block_for_scope(data["video_tvc"])
+    data["video_overview"] = scale_block_for_scope(data["video_overview"])
+    return data
+
+
 def adjust_block(block: dict, extra_usd: float, merge_map: dict) -> dict:
     target_net = (
         float(block["subtotal"])
@@ -333,6 +400,7 @@ def adjust_block(block: dict, extra_usd: float, merge_map: dict) -> dict:
 
 
 def prepare_client_budget(raw: dict) -> dict:
+    raw = apply_scope_revision(raw)
     rate = raw["rate"]
     tvc_sub = float(raw["video_tvc"]["subtotal"])
     ov_sub = float(raw["video_overview"]["subtotal"])
