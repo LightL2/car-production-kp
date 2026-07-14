@@ -5,4 +5,9 @@ pptx_extract/
 .DS_Store
 Thumbs.db
 assets/byd/
-split-kp/deploy/
+split-kp/
+build_split_presentations.py
+deploy_split_github.py
+export_split_pdf.py
+split_budget_html.py
+split_team_content.py
