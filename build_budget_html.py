@@ -13,6 +13,7 @@ DATA = ROOT / "estimate_data.json"
 INDEX = ROOT / "kp.html"
 MARK_START = "<!-- BUDGET_START -->"
 MARK_END = "<!-- BUDGET_END -->"
+PHOTO_DELIVERABLE_COUNT = 90
 
 
 def usd(n):
@@ -272,6 +273,136 @@ def video_detail_slide(d, key, label, tag):
         </tbody>
       </table>"""
     return slide_shell(tag, "", f"VIDEO DETAIL {key}", body, "video", "compact budget-detail budget-slide")
+
+
+def photo_unit_rates(d):
+    """Per-photo shoot + post (post = 50% of shoot); aligned to project photo budget."""
+    total = float(d["photo_total_usd"])
+    per_all = total / PHOTO_DELIVERABLE_COUNT
+    shoot = round(per_all / 1.5)
+    process = round(shoot * 0.5)
+    return {
+        "count": PHOTO_DELIVERABLE_COUNT,
+        "shoot_usd": shoot,
+        "process_usd": process,
+        "shoot_uzs": int(shoot * d["rate"]),
+        "process_uzs": int(process * d["rate"]),
+        "pair_usd": shoot + process,
+        "pair_uzs": int((shoot + process) * d["rate"]),
+        "project_total_usd": total,
+    }
+
+
+def photo_unit_pricing_slide(d):
+    u = photo_unit_rates(d)
+    body = f"""      <div class="pricing-top">
+        <div>
+          <span class="tag-photo">Unit Pricing · Photo</span>
+          <h2 class="title" style="font-size:clamp(1.5rem,3vw,2.6rem)">Тариф за кадр</h2>
+          <p class="lead muted" style="margin-top:1.4vh;max-width:52ch">Ставки за один финальный кадр · НДС включён</p>
+        </div>
+      </div>
+      <div class="unit-pricing-grid">
+        <div class="unit-price-card accent">
+          <div class="unit-num">01</div>
+          <div class="unit-lbl">Под ключ · 1 фото</div>
+          <div class="unit-amt">{usd(u['pair_usd'])}</div>
+          <div class="unit-sub">{uzs_html(u['pair_uzs'])}</div>
+          <ul class="blist muted unit-list">
+            <li>Pre-production, съёмка, свет, команда</li>
+            <li>Студия / location · RAW с камеры</li>
+            <li>Ретушь, AI, цветокор · TIFF + JPG</li>
+            <li>≥ 10 000 × 7 000 px · горизонталь</li>
+          </ul>
+        </div>
+        <div class="unit-price-card">
+          <div class="unit-num">02</div>
+          <div class="unit-lbl">Только постобработка · 1 фото</div>
+          <div class="unit-amt">{usd(u['process_usd'])}</div>
+          <div class="unit-sub">{uzs_html(u['process_uzs'])}</div>
+          <ul class="blist muted unit-list">
+            <li>Ретушь и профессиональный AI</li>
+            <li>Частотное разложение · коррекция текстур</li>
+            <li>Цветокор, фон, QC · TIFF + JPG</li>
+          </ul>
+        </div>
+      </div>"""
+    return slide_shell(
+        "СМЕТА · ФОТО · ТАРИФ",
+        "",
+        "PHOTO UNIT PRICING",
+        body,
+        "photo",
+        "compact budget-slide center-v",
+    )
+
+
+def photo_summary_only_slide(d):
+    b = d["photo"]
+    body = f"""      <div class="kicker">Сводная стоимость</div>
+      <h2 class="title">Бюджет<br>фотопроизводства</h2>
+      <div class="summary-hero">
+        <div class="budget-col photo" style="max-width:520px;margin:0 auto">
+          <div class="bl">Фото · Photo Unit</div>
+          <div class="bt">{usd(b['overall_usd'])}<span class="nolink" x-apple-data-detectors="false">{uzs(b['overall_usd'] * d['rate'])} UZS · {b['shifts']} смены</span></div>
+          <ul class="blist muted" style="gap:.7vh">
+            <li style="font-size:.82rem">Subtotal {usd(b['subtotal'])} + НДС {usd(b['vat'])}</li>
+            <li style="font-size:.82rem">{PHOTO_DELIVERABLE_COUNT} финальных кадров · 5 категорий</li>
+          </ul>
+        </div>
+        <div class="total-block" x-apple-data-detectors="false">
+          <div class="tlbl">Итого · фотопроизводство</div>
+          <div class="tamt">{usd(d['photo_total_usd'])}</div>
+          <div class="tuzs">{uzs_html(d['photo_total_uzs'])}</div>
+        </div>
+      </div>
+      <div class="note">Курс {d['rate']:,} UZS/USD (ЦБ). НДС 12% включён в итоговую стоимость.</div>"""
+    return f"""  <!-- PHOTO SUMMARY -->
+  <section class="slide grid-bg mesh compact center-v budget-slide">
+    <div class="orb orb-1"></div>
+    <div class="topbar"><span class="tag">ИТОГО · ФОТО</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+{body}
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+"""
+
+
+def video_summary_only_slide(d):
+    tvc = d["video_tvc"]
+    ov = d["video_overview"]
+    vt = d["video_total_usd"]
+    body = f"""      <div class="kicker">Сводная стоимость</div>
+      <h2 class="title">Бюджет<br>видеопроизводства</h2>
+      <div class="summary-hero">
+        <div class="split-budget" style="margin-top:0;max-width:920px;margin-left:auto;margin-right:auto">
+          <div class="budget-col video">
+            <div class="bl" style="color:var(--white)">TVC · главный ролик</div>
+            <div class="bt">{usd(tvc['overall_usd'])}<span class="nolink" x-apple-data-detectors="false">{uzs(tvc['overall_usd'] * d['rate'])} UZS · {tvc['shifts']} смена</span></div>
+          </div>
+          <div class="budget-col video">
+            <div class="bl" style="color:var(--white)">Overview · обзорные</div>
+            <div class="bt">{usd(ov['overall_usd'])}<span class="nolink" x-apple-data-detectors="false">{uzs(ov['overall_usd'] * d['rate'])} UZS · {ov['shifts']} смена</span></div>
+          </div>
+        </div>
+        <div class="total-block" x-apple-data-detectors="false">
+          <div class="tlbl">Итого · видеопроизводство</div>
+          <div class="tamt">{usd(vt)}</div>
+          <div class="tuzs">{uzs_html(d['video_total_uzs'])}</div>
+        </div>
+      </div>
+      <div class="note">Курс {d['rate']:,} UZS/USD (ЦБ). НДС 12% включён. 4 ролика · 4K UHD.</div>"""
+    return f"""  <!-- VIDEO SUMMARY -->
+  <section class="slide grid-bg mesh compact center-v budget-slide">
+    <div class="orb orb-2"></div>
+    <div class="topbar"><span class="tag">ИТОГО · ВИДЕО</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
+    <div class="body">
+{body}
+    </div>
+    <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
+  </section>
+"""
 
 
 def summary_slide(d):

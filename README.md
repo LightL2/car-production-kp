@@ -28,6 +28,10 @@ car-production-kp/assets/byd/
 | `byd-cinematic.mp4` | BYD · cinematic · вертикальный reel (верхний ряд, справа) |
 | `byd-4x3-final.mp4` | BYD · 4×3 · горизонтальный ролик (нижний ряд) |
 
+**Куда залить:** в репозиторий [car-production-kp](https://github.com/LightL2/car-production-kp), папка `assets/byd/` (через GitHub UI или напрямую на хостинг).  
+Публичный URL: `https://lightl2.github.io/car-production-kp/assets/byd/byd-4x3-final.mp4`  
+Видео-КП (`car-production-kp-video`) подгружает этот файл с этого адреса.
+
 ## Пересборка
 
 ```powershell

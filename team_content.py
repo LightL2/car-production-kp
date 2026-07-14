@@ -69,6 +69,8 @@ BYD_REELS_TOP = [
 ]
 BYD_REEL_LAND = ("byd-4x3-final.mp4", "BYD · 4×3")
 BYD_ASSETS = "assets/byd"
+# Загружается на хостинг вручную (файл >100 MB, не в git)
+BYD_REEL_LAND_HOSTED = "https://lightl2.github.io/car-production-kp/assets/byd/byd-4x3-final.mp4"
 
 ALMATY_EXT = [
     ("1.jpg", "2.jpg"),
@@ -182,20 +184,57 @@ def copy_almaty_samples():
                 existing.unlink()
 
 
-def team_intro_slide():
-    return """  <!-- TEAM INTRO -->
+VIDEO_TEAM = {"Егор Иванов", "Павел Янкевич"}
+PHOTO_TEAM = {"Тео Госеллин"}
+
+
+def team_intro_slide(mode="full"):
+    if mode == "photo":
+        lead = "На&nbsp;фотопроектах 8BIT-MEDIA подключает международных фотографов и&nbsp;production-команду с&nbsp;опытом automotive-съёмок&nbsp;— студия, location, свет и&nbsp;post."
+        sub = "Реализацию для BYD ведут специалисты, которые понимают требования к&nbsp;статичным материалам: разрешение, ретушь, единый стиль кампании. Координацию обеспечивает 8BIT-MEDIA."
+    elif mode == "video":
+        lead = "На&nbsp;видеопроектах 8BIT-MEDIA работает с&nbsp;режиссёрами и&nbsp;операторами из&nbsp;международной production-сети&nbsp;— командами, которых мы&nbsp;подключаем на&nbsp;крупные съёмочные сессии."
+        sub = "Почти полтора года мы&nbsp;ведём reels-продакшн для BYD и&nbsp;DENZA&nbsp;— знаем продукт бренда, динамику кадра и&nbsp;требования к&nbsp;качеству. Координацию обеспечивает 8BIT-MEDIA."
+    else:
+        lead = "На&nbsp;крупных продакшн-проектах 8BIT-MEDIA работает с&nbsp;зарубежными партнёрами из&nbsp;международной production-сети&nbsp;— режиссёрами, операторами и&nbsp;фотографами, которых мы&nbsp;подключаем на&nbsp;масштабные съёмочные сессии."
+        sub = "Реализацию для BYD ведут специалисты с&nbsp;опытом automotive-проектов: мы&nbsp;понимаем, какой уровень качества требуется от&nbsp;материалов, и&nbsp;выстроили процесс под эти стандарты. Координацию съёмки и&nbsp;контроль сдачи обеспечивает 8BIT-MEDIA."
+    return f"""  <!-- TEAM INTRO -->
   <section class="slide mesh center-v compact">
     <div class="orb orb-2"></div>
     <div class="topbar"><span class="tag">КОМАНДА</span><img class="topbar-logo" src="assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
       <div class="kicker">Международная production-сеть</div>
       <h2 class="title">Команда<br>проекта</h2>
-      <p class="lead" style="margin-top:2vh">На&nbsp;крупных продакшн-проектах 8BIT-MEDIA работает с&nbsp;зарубежными партнёрами из&nbsp;международной production-сети&nbsp;— режиссёрами, операторами и&nbsp;фотографами, которых мы&nbsp;подключаем на&nbsp;масштабные съёмочные сессии.</p>
-      <p class="lead muted" style="margin-top:1.8vh;max-width:54ch">Реализацию для BYD ведут специалисты с&nbsp;опытом automotive-проектов: мы&nbsp;понимаем, какой уровень качества требуется от&nbsp;материалов, и&nbsp;выстроили процесс под эти стандарты. Координацию съёмки и&nbsp;контроль сдачи обеспечивает 8BIT-MEDIA.</p>
+      <p class="lead" style="margin-top:2vh">{lead}</p>
+      <p class="lead muted" style="margin-top:1.8vh;max-width:54ch">{sub}</p>
     </div>
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 """
+
+
+def build_team_slides_html(intro=True, mode="full", landscape_src=None):
+    """mode: full | photo | video — filter crew and portfolio for split KPs."""
+    mode = (mode or "full").lower()
+    parts = ["<!-- TEAM_START -->"]
+    if intro:
+        parts.append(team_intro_slide(mode=mode))
+    for member in TEAM:
+        is_video = member["name"] in VIDEO_TEAM
+        is_photo = member["name"] in PHOTO_TEAM
+        if mode == "photo" and is_video:
+            continue
+        if mode == "video" and is_photo:
+            continue
+        parts.append(team_member_slide(member))
+        if member.get("reel"):
+            parts.append(team_reel_slide(member))
+        if member["name"] == "Тео Госеллин" and mode != "video":
+            parts.extend(build_photo_gallery())
+    if mode != "photo":
+        parts.append(byd_experience_slide(landscape_src=landscape_src))
+    parts.append("<!-- TEAM_END -->")
+    return "\n".join(parts) + "\n"
 
 
 def team_member_slide(member):
@@ -306,19 +345,23 @@ def build_photo_gallery():
     return parts
 
 
-def byd_vid_cell(file, label, kind="port"):
+def byd_vid_cell(file, label, kind="port", src=None):
     cls = "byd-vid-port" if kind == "port" else "byd-vid-land"
+    video_src = src if src is not None else f"{BYD_ASSETS}/{esc(file)}"
     return f"""        <div class="byd-vid {cls}">
           <video controls playsinline preload="metadata">
-            <source src="{BYD_ASSETS}/{esc(file)}" type="video/mp4">
+            <source src="{video_src}" type="video/mp4">
           </video>
           <div class="byd-vid-cap">{esc(label)}</div>
         </div>"""
 
 
-def byd_experience_slide():
+def byd_experience_slide(landscape_src=None):
     top = "".join(byd_vid_cell(file, label, "port") for file, label in BYD_REELS_TOP)
-    bottom = byd_vid_cell(BYD_REEL_LAND[0], BYD_REEL_LAND[1], "land")
+    land_file, land_label = BYD_REEL_LAND
+    if landscape_src is None:
+        landscape_src = f"{BYD_ASSETS}/{land_file}"
+    bottom = byd_vid_cell(land_file, land_label, "land", src=landscape_src)
     return f"""  <!-- BYD EXPERIENCE -->
   <section class="slide byd-slide mesh center-v compact">
     <div class="orb orb-2"></div>
@@ -340,18 +383,3 @@ def byd_experience_slide():
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 """
-
-
-def build_team_slides_html(intro=True):
-    parts = ["<!-- TEAM_START -->"]
-    if intro:
-        parts.append(team_intro_slide())
-    for member in TEAM:
-        parts.append(team_member_slide(member))
-        if member.get("reel"):
-            parts.append(team_reel_slide(member))
-        if member["name"] == "Тео Госеллин":
-            parts.extend(build_photo_gallery())
-    parts.append(byd_experience_slide())
-    parts.append("<!-- TEAM_END -->")
-    return "\n".join(parts) + "\n"
