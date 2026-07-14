@@ -402,6 +402,23 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
 .sample-head{position:absolute;top:7.5vh;left:0;right:0;text-align:center;z-index:4;pointer-events:none}
 .sample-loc{font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
 
+
+/* unit pricing (photo KP) */
+.unit-pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:2vw;width:100%;max-width:920px;margin:2.2vh auto 0}
+.unit-price-card{border:1px solid var(--line);border-radius:16px;padding:2.2vh 1.8vw;background:rgba(0,0,0,.35);backdrop-filter:blur(12px)}
+.unit-price-card.accent{border-color:rgba(0,122,255,.35);box-shadow:0 0 40px rgba(0,122,255,.12)}
+.unit-num{font-family:var(--mono);font-size:.68rem;letter-spacing:.16em;color:var(--accent);margin-bottom:1vh}
+.unit-lbl{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--grey);margin-bottom:1.2vh}
+.unit-amt{font-family:var(--display);font-size:clamp(1.6rem,3.2vw,2.6rem);font-weight:700;line-height:1;margin-bottom:.6vh}
+.unit-sub{font-family:var(--mono);font-size:.68rem;color:var(--grey);margin-bottom:1.4vh}
+.unit-list{font-size:.78rem;gap:.55vh}
+.unit-total-bar{display:flex;justify-content:space-between;align-items:center;gap:2vw;margin-top:2vh;padding:1.4vh 1.6vw;border:1px solid var(--line);border-radius:12px;max-width:920px;margin-left:auto;margin-right:auto;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+.unit-total-bar .val{color:var(--white);font-weight:500}
+.video-unit-table{max-width:960px;margin:2vh auto 0}
+.video-unit-table .qty{font-family:var(--mono);color:var(--grey);white-space:nowrap}
+.video-unit-table td.totals{text-align:right;padding-right:0}
+@media(max-width:900px){.unit-pricing-grid{grid-template-columns:1fr}}
+
 /* end slide */
 .end-slide .body{align-items:center;text-align:center;}
 .cover .sub{margin-top:2.4vh;font-size:clamp(.92rem,1.35vw,1.25rem);color:var(--grey);max-width:48ch;line-height:1.5;}
@@ -730,66 +747,69 @@ h2.title{font-family:var(--display);font-weight:700;font-size:clamp(1.75rem,3.8v
     <div class="footer"><div class="idx"></div><div class="brand"><b>8BIT-MEDIA</b></div><div class="footer-mark"></div></div>
   </section>
 
-<!-- VIDEO BUDGET -->
-  <section class="slide has-bg mesh compact budget-slide">
+<!-- VIDEO UNIT PRICING -->
+  <section class="slide has-bg mesh compact budget-slide center-v">
     <div class="slide-bg video"></div>
     <div class="orb orb-2"></div>
-    <div class="topbar"><span class="tag">СМЕТА · ВИДЕО</span><img class="topbar-logo" src="../../assets/logo-8bit-white.png" alt=""></div>
+    <div class="topbar"><span class="tag">СМЕТА · ВИДЕО · ТАРИФ</span><img class="topbar-logo" src="../../assets/logo-8bit-white.png" alt=""></div>
     <div class="body">
       <div class="pricing-top">
         <div>
-          <span class="tag-video">Video Production</span>
-          <h2 class="title" style="font-size:clamp(1.5rem,3vw,2.6rem)">Видеопроизводство</h2>
-        </div>
-        <div class="price-card" x-apple-data-detectors="false">
-          <div class="plbl">Итого с налогами</div>
-          <div class="pamt">$113 534</div>
-          <div class="psub"><span class="nolink" x-apple-data-detectors="false">1 373 761 400 UZS</span></div>
-          <div class="pvat">TVC 1 + Overview 1 смены</div>
+          <span class="tag-video">Unit Pricing · Video</span>
+          <h2 class="title" style="font-size:clamp(1.5rem,3vw,2.6rem)">Тариф за ролик</h2>
+          <p class="lead muted" style="margin-top:1.4vh;max-width:56ch">Стоимость одного финального ролика под ключ · pre-production, съёмка, post, delivery · НДС включён</p>
         </div>
       </div>
-      <div class="budget-split">
-        <div class="budget-block">
-          <div class="block-title">TVC · главный ролик <span>$63 619</span></div>
-          <table class="ptable ptable-dense ptable-2col">
-            <thead><tr><th>Статья</th><th style="text-align:right">USD</th></tr></thead>
-            <tbody>
-<tr><td class="name">Pre-Production</td><td class="amt">$8 400</td></tr>
-<tr><td class="name">Production</td><td class="amt">$34 850</td></tr>
-<tr><td class="name">Post-Production</td><td class="amt">$1 200</td></tr>
-<tr><td class="name">Прочее</td><td class="amt">$12 350</td></tr>
-<tr class="sub"><td class="name muted">↳ Travel &amp; logistics</td><td class="amt muted">$8 000</td></tr>
-<tr class="sub"><td class="name muted">↳ Overtime &amp; contingency</td><td class="amt muted">$4 350</td></tr>
-            </tbody>
-          </table>
-        </div>
-        <div class="budget-block">
-          <div class="block-title">Overview · обзорные ролики <span>$49 915</span></div>
-          <table class="ptable ptable-dense ptable-2col">
-            <thead><tr><th>Статья</th><th style="text-align:right">USD</th></tr></thead>
-            <tbody>
-<tr><td class="name">Pre-Production</td><td class="amt">$7 250</td></tr>
-<tr><td class="name">Production</td><td class="amt">$24 100</td></tr>
-<tr><td class="name">Post-Production</td><td class="amt">$925</td></tr>
-<tr><td class="name">Прочее</td><td class="amt">$12 300</td></tr>
-<tr class="sub"><td class="name muted">↳ Travel &amp; logistics</td><td class="amt muted">$7 900</td></tr>
-<tr class="sub"><td class="name muted">↳ Overtime &amp; contingency</td><td class="amt muted">$4 400</td></tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <table class="ptable ptable-2col" style="margin-top:1.2vh">
+      <table class="ptable ptable-dense video-unit-table">
+        <thead>
+          <tr>
+            <th>Ролик</th>
+            <th>Кол-во</th>
+            <th style="text-align:right">Стоимость</th>
+            <th>Формат</th>
+          </tr>
+        </thead>
         <tbody>
-          <tr class="sub"><td class="name muted">Subtotal TVC + Overview</td><td class="amt muted">$101 375</td></tr>
-          <tr class="sub"><td class="name muted">+ НДС 12%</td><td class="amt muted">$12 159</td></tr>
-          <tr class="total">
-            <td class="name">ИТОГО ВИДЕО <span class="row-note">включая НДС</span></td>
+          <tr>
+            <td class="name">TVC · главный ролик</td>
+            <td class="qty">1 шт.</td>
             <td class="totals">
               <div class="amt-pair">
-                <span class="amt-usd">$113 534</span>
-                <span class="amt-uzs"><span class="nolink" x-apple-data-detectors="false">1 373 761 400 UZS</span></span>
+                <span class="amt-usd">$63 619</span>
+                <span class="amt-uzs"><span class="nolink" x-apple-data-detectors="false">769 789 900 UZS</span></span>
               </div>
             </td>
+            <td class="desc">30″ / 15″ · 4K UHD · LOG</td>
+          </tr>          <tr>
+            <td class="name">Overview · экстерьер</td>
+            <td class="qty">1 шт.</td>
+            <td class="totals">
+              <div class="amt-pair">
+                <span class="amt-usd">$16 638</span>
+                <span class="amt-uzs"><span class="nolink" x-apple-data-detectors="false">201 319 800 UZS</span></span>
+              </div>
+            </td>
+            <td class="desc">Обзорный ролик экстерьера · 4K</td>
+          </tr>          <tr>
+            <td class="name">Overview · интерьер</td>
+            <td class="qty">1 шт.</td>
+            <td class="totals">
+              <div class="amt-pair">
+                <span class="amt-usd">$16 638</span>
+                <span class="amt-uzs"><span class="nolink" x-apple-data-detectors="false">201 319 800 UZS</span></span>
+              </div>
+            </td>
+            <td class="desc">Обзор салона и материалов · 4K</td>
+          </tr>          <tr>
+            <td class="name">Overview · функции</td>
+            <td class="qty">1 шт.</td>
+            <td class="totals">
+              <div class="amt-pair">
+                <span class="amt-usd">$16 639</span>
+                <span class="amt-uzs"><span class="nolink" x-apple-data-detectors="false">201 331 900 UZS</span></span>
+              </div>
+            </td>
+            <td class="desc">Ключевые функции и технологии · 4K</td>
           </tr>
         </tbody>
       </table>

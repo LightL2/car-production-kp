@@ -337,6 +337,99 @@ def photo_unit_pricing_slide(d):
     )
 
 
+VIDEO_UNIT_COUNT = 4
+OVERVIEW_VIDEO_COUNT = 3
+
+
+def video_unit_rates(d):
+    """Per-deliverable turnkey price: TVC block + overview split across 3 rolls."""
+    tvc_usd = int(round(float(d["video_tvc"]["overall_usd"])))
+    ov_total = int(round(float(d["video_overview"]["overall_usd"])))
+    ov_per = round(ov_total / OVERVIEW_VIDEO_COUNT)
+    ov_last = ov_total - ov_per * (OVERVIEW_VIDEO_COUNT - 1)
+    rate = float(d["rate"])
+    return [
+        {
+            "cat": "TVC",
+            "label": "TVC · главный ролик",
+            "qty": "1 шт.",
+            "usd": tvc_usd,
+            "uzs": int(tvc_usd * rate),
+            "note": "30″ / 15″ · 4K UHD · LOG",
+        },
+        {
+            "cat": "Экстерьер",
+            "label": "Overview · экстерьер",
+            "qty": "1 шт.",
+            "usd": ov_per,
+            "uzs": int(ov_per * rate),
+            "note": "Обзорный ролик экстерьера · 4K",
+        },
+        {
+            "cat": "Интерьер",
+            "label": "Overview · интерьер",
+            "qty": "1 шт.",
+            "usd": ov_per,
+            "uzs": int(ov_per * rate),
+            "note": "Обзор салона и материалов · 4K",
+        },
+        {
+            "cat": "Функции",
+            "label": "Overview · функции",
+            "qty": "1 шт.",
+            "usd": ov_last,
+            "uzs": int(ov_last * rate),
+            "note": "Ключевые функции и технологии · 4K",
+        },
+    ]
+
+
+def video_unit_row(item):
+    return f"""          <tr>
+            <td class="name">{esc(item['label'])}</td>
+            <td class="qty">{esc(item['qty'])}</td>
+            <td class="totals">
+              <div class="amt-pair">
+                <span class="amt-usd">{usd(item['usd'])}</span>
+                <span class="amt-uzs">{uzs_html(item['uzs'])}</span>
+              </div>
+            </td>
+            <td class="desc">{esc(item['note'])}</td>
+          </tr>"""
+
+
+def video_unit_pricing_slide(d):
+    rows = "".join(video_unit_row(item) for item in video_unit_rates(d))
+    body = f"""      <div class="pricing-top">
+        <div>
+          <span class="tag-video">Unit Pricing · Video</span>
+          <h2 class="title" style="font-size:clamp(1.5rem,3vw,2.6rem)">Тариф за ролик</h2>
+          <p class="lead muted" style="margin-top:1.4vh;max-width:56ch">Стоимость одного финального ролика под ключ · pre-production, съёмка, post, delivery · НДС включён</p>
+        </div>
+      </div>
+      <table class="ptable ptable-dense video-unit-table">
+        <thead>
+          <tr>
+            <th>Ролик</th>
+            <th>Кол-во</th>
+            <th style="text-align:right">Стоимость</th>
+            <th>Формат</th>
+          </tr>
+        </thead>
+        <tbody>
+{rows}
+        </tbody>
+      </table>"""
+    return slide_shell(
+        "СМЕТА · ВИДЕО · ТАРИФ",
+        "",
+        "VIDEO UNIT PRICING",
+        body,
+        "video",
+        "compact budget-slide center-v",
+    )
+
+
 def photo_summary_only_slide(d):
     b = d["photo"]
     body = f"""      <div class="kicker">Сводная стоимость</div>

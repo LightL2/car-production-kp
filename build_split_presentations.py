@@ -11,7 +11,7 @@ from pathlib import Path
 
 from build_budget_html import (
     photo_unit_pricing_slide,
-    video_overview_slide,
+    video_unit_pricing_slide,
 )
 from team_content import TEAM_CSS, BYD_REEL_LAND_HOSTED, build_team_slides_html, copy_almaty_samples, copy_team_assets
 
@@ -61,6 +61,9 @@ SPLIT_CSS = """
 .unit-list{font-size:.78rem;gap:.55vh}
 .unit-total-bar{display:flex;justify-content:space-between;align-items:center;gap:2vw;margin-top:2vh;padding:1.4vh 1.6vw;border:1px solid var(--line);border-radius:12px;max-width:920px;margin-left:auto;margin-right:auto;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
 .unit-total-bar .val{color:var(--white);font-weight:500}
+.video-unit-table{max-width:960px;margin:2vh auto 0}
+.video-unit-table .qty{font-family:var(--mono);color:var(--grey);white-space:nowrap}
+.video-unit-table td.totals{text-align:right;padding-right:0}
 @media(max-width:900px){.unit-pricing-grid{grid-template-columns:1fr}}
 """
 
@@ -427,7 +430,7 @@ def build_video_deck(slides: list[str], budget: dict, landscape_src: str | None 
 
     ordered.extend(
         [
-            video_overview_slide(budget).strip(),
+            video_unit_pricing_slide(budget).strip(),
         ]
     )
 
@@ -447,7 +450,7 @@ def build_video_deck(slides: list[str], budget: dict, landscape_src: str | None 
             slide = customize_process(slide, "video")
         out.append(slide)
 
-    return assemble_html(out, VIDEO_COVER["title"])
+    return assemble_html(out, VIDEO_COVER["title"], extra_css=True)
 
 
 def main():
